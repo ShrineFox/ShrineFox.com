@@ -1,0 +1,11 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
+
+<div class="container">
+	@ChildContent
+</div>

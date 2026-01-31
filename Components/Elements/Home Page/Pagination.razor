@@ -1,0 +1,83 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter] public EventCallback<int> OnPageSelected { get; set; }
+
+    private void HandlePageClick(int pageNumber = -2)
+    {
+        OnPageSelected.InvokeAsync(pageNumber);
+    }
+
+    [Parameter]
+    public int CurrentPage { get; set; } = 0;
+
+    [Parameter]
+    public int NumberOfElements { get; set; } = 0;
+
+    [Parameter]
+    public int ElementsPerPage { get; set; } = 15;
+
+    // private int PageButtonFalloff { get; set; } = 3;
+
+    private int NumberOfPages { get; set; } = 0;
+
+    protected override void OnInitialized()
+    {
+        NumberOfPages = RoundUpDivision(NumberOfElements, ElementsPerPage);
+    }
+
+    public static int RoundUpDivision(int numerator, int denominator)
+    {
+        // Prevent dividing by zero
+        if (denominator == 0)
+            return 0;
+
+        int quotient = numerator / denominator; // divide without storing decimal
+        if (numerator % denominator != 0) // check if remainder is not zero
+            quotient++; // round up by 1
+        return quotient;
+    }
+
+    // In your component's code
+    private async Task ButtonHandler(int value)
+    {
+        await JS.InvokeVoidAsync("OnClickEvent", value);
+    }
+}
+
+@if (NumberOfPages > 0 && NumberOfElements > ElementsPerPage)
+{
+    <ul class="pagination">
+        <!--Previous page button-->
+        @if (CurrentPage < 2)
+        {
+            <li class="page-item disabled"><span>Previous</span></li>
+        }
+        else
+        {
+            <li class="page-item" @onclick="() => HandlePageClick(-1)"><span>Prev</span></li>
+        }
+        <!--Pages Numbers-->
+        @for (int i = 1; i <= NumberOfPages; i++)
+        {
+            @if (i == CurrentPage)
+            {
+                <li class="page-item active"><span>@i</span></li>
+            }
+            else
+            {
+                <li class="page-item" @onclick="() => HandlePageClick(i)"><span>@i</span></li>
+            }
+        }
+        <!--Next page button-->
+        @if (CurrentPage < NumberOfPages)
+        {
+            <li class="page-item" @onclick="() => HandlePageClick(0)"><span>Next</span></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><span>Next</span></li>
+        }
+    </ul>
+}

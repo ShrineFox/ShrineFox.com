@@ -1,0 +1,46 @@
+@using System.Xml
+@using ShrineFoxCom.Components.Layout
+@using SimpleFeedReader
+@inject IJSRuntime JS
+
+<div class="card">
+    <div class="card-footer">
+        <ul>
+            @if (items == null)
+            {
+                <p>Loading…</p>
+            }
+            else
+            {
+                @foreach (var i in items.Take(5))
+                {
+                    <li style="list-style:none;">
+                        <h3>
+                            <a href="@i.Uri" target="_blank">@i.Title</a>
+                        </h3>
+                        <b>@i.PublishDate?.ToString("MMM d")</b>
+                        <div class="itemContent">
+                            @i.Summary
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="card-header">
+        <div class="card-title h5"><a href="/blog/"><i class="fa-regular fa-newspaper"></i> See more blogposts</a></div>
+    </div>
+</div>
+
+@code
+{
+    private FeedReader feed = new FeedReader();
+    private IEnumerable<FeedItem>? items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await feed.RetrieveFeedAsync(
+            "https://shrinefox.com/blog/feed/"
+        );
+    }
+}

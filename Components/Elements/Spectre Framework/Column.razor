@@ -1,0 +1,23 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter]
+    public bool Centered { get; set; } = false;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public int WidthMax { get; set; } = 3;
+    [Parameter]
+    public int WidthLarge { get; set; } = 4;
+    [Parameter]
+    public int WidthMid { get; set; } = 6;
+    [Parameter]
+    public int WidthMin { get; set; } = 12;
+}
+
+<div class="column col-@WidthMax col-lg-@WidthLarge col-md-@WidthMid col-sm-@WidthMin @(Centered ? "flex-centered" : "")">
+	    @ChildContent
+</div>

@@ -1,0 +1,34 @@
+﻿@page "/projects"
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.HomePageComponents
+
+<PageNavHeader CurrentPageName="Projects"/>
+
+<Notice>
+    Here you can learn more about the status of work-in-progress software I'm developing.
+</Notice>
+
+@if (projects == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Columns>
+        @foreach (var project in projects)
+        {
+            MarkupString title = new MarkupString(project.Title);
+            MarkupString subtitle = new MarkupString(project.Subtitle);
+            MarkupString footer = new MarkupString(project.Footer);
+
+            <Column WidthMax=6 WidthLarge=6 WidthMid=12>
+                <Card Title=title Subtitle=subtitle footer=footer>
+                    <blockquote class="trello-card"><a href="@project.Trello">Trello Card</a></blockquote>
+                    <br>@((MarkupString)project.Body)
+                </Card>
+            </Column>
+        }
+    </Columns>
+}
+<script src="https://p.trellocdn.com/embed.min.js"></script>

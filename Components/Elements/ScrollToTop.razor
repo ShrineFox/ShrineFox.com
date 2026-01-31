@@ -1,0 +1,12 @@
+@inject IJSRuntime JS
+
+<script>
+	function ScrollToTop() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+</script>
+
+<a class="btn btn-primary float-right" onclick="ScrollToTop()">
+	<i class="fa-solid fa-circle-arrow-up"></i> Back to top
+</a>

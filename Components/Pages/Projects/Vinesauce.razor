@@ -1,0 +1,180 @@
+﻿@page "/vinesauce"
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Project_Pages
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.HomePageComponents
+@using ShrineFoxCom.Components.Layout
+
+@layout EmptyLayout
+
+<HeadContent>
+	<link rel="stylesheet" href="/css/spectre.css" />
+	<link rel="stylesheet" href="./css/projects/Vinesauce/vine.css">
+	<link rel="stylesheet" href="./css/theme/toggle.css">
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/toggle.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+	<link rel="icon" type="image/x-icon" href="./images/projects/Vinesauce/favicon.ico" />
+
+	<title>P5R Vinesauce Mod</title>
+</HeadContent>
+
+<div class="wrapper"> </div>
+
+<Logo/>
+
+<Border Class="vineborder">
+	<Columns>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<img class="img-responsive" src="./images/projects/Vinesauce/vine_logo.webp" alt="Logo by lynlyn_cpk">
+			<h1><b><div class="typesauce">It's Time to Scoot the Burbs, Everyone.</div></b></h1>
+			Vinny finds himself stuck in the world of Persona 5, teaming up with and fighting against a large cast of familiar faces.
+			<br>Together, will they find a way out?
+			<br>
+			<br>Join us in commemorating several years of fun and hilarious Vinesauce streams.
+			Experience P5R like never before with new art, models, music, and tons of
+			easter eggs from Vinny’s past broadcasts.
+		</Column>
+		<Column Centered=true WidthMax=6 WidthLarge=6 WidthMid=12>
+			<!-- Trailer -->
+			<div class="video-responsive">
+				<iframe src="https://www.youtube.com/embed/cMvoJUaZ_fc" width="350" height="200" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no"></iframe>
+			</div>
+		</Column>
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	<h1><div class="typesauce">KEEP UP TO DATE</div></h1>
+	<br>
+	<Notice Icon="fa-pizza-slice"><b>Latest Status (as of 2/1/2026):</b> Most artwork, sounds, and logical framework is in place. All that's left to do is to populate the mod with custom Personas and enemies to fight and recruit!
+		<br>For the sake of transparency, this part is taking so long because I'm doing it inbetween editing videos for my own channel as well as Vinny's. I was also tasked with making a similar (but much, much smaller scale) mod for another streamer friend.
+		<br><br>I apologize to those who bought the game in advance and have been waiting so long to experience this mod. I am very much looking forward to sharing it as soon as I can.
+	</Notice>
+	<center>
+		<b><a href="https://x.com/P5RVinesauce"><i class="fa-brands fa-twitter"></i> Follow our Twitter for updates!</a></b> | <a href="https://ko-fi.com/shrinefox"><i class="fa fa-coffee"></i> Leave a Tip on Ko-Fi!</a>
+		<br>Not feeling Twitter? <a href="https://bsky.app/profile/p5rvinesauce.bsky.social"><i class="fa-brands fa-bluesky"></i> Follow us on Bluesky instead</a>!
+		<br>
+		<br>Read the blogposts for an in-depth look at development:
+		<br><a href="https://shrinefox.com/blog/2023/02/03/p5r-vinesauce-mod-devlog-1/">Devlog 1</a> | <a href="https://shrinefox.com/blog/2023/03/02/p5r-vinesauce-mod-devlog-2/">Devlog 2</a> | <a href="https://shrinefox.com/blog/2023/07/27/p5r-vinesauce-mod-devlog-3/">Devlog 3</a>
+		| <a href="https://shrinefox.com/blog/2024/03/23/p5r-vinesauce-mod-devlog-4/">Devlog 4</a> | <a href="https://shrinefox.com/blog/2024/10/01/p5r-vinesauce-mod-devlog-5/">Devlog 5</a>
+	</center>
+</Border>
+
+<Border Class="vineborder">
+	<Columns>
+		<Column Centered=true WidthMax=6 WidthLarge=6 WidthMid=12>
+			<!--Joel Trailer-->
+			<div class="video-responsive">
+				<iframe src="https://www.youtube.com/embed/ZeEKjIHEm7s" width="350" height="200" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no"></iframe>
+			</div>
+		</Column>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<h1><div class="typesauce">FEATURES</div></h1>
+			Re-experience the acclaimed RPG from a fresh new angle!
+			<ul>
+				<li>Play as Vinny Vinesauce, complete with custom models and voice clips.</li>
+				<li>9 fully reskinned party members inspired by Vinesauce lore.</li>
+				<li>A variety of enemies to battle and recruit, all taken from Vinny's streams!</li>
+				<li>Complete OST replacement from Vinny’s band <a href="https://vine.bandcamp.com/music">Red Vox</a>– a varied mix of instrumental and lyrical tracks.</li>
+				<li>A fresh coat of green paint, with skillful UI art recreations by the community.</li>
+				<li>Tons of easter eggs and references to Vinny’s Twitch livestreams!</li>
+				<li>A trimmed-down story mode that allows you to focus on gameplay.</li>
+				<li>See how far you can get in just 20 minutes!</li>
+			</ul>
+		</Column>
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	<center>
+		<h1><div class="typesauce">FREQUENTLY ASKED QUESTIONS</div></h1>
+
+		<Toggle Title="What is Vinesauce?" class="typesauce">
+			Vinesauce is a <a href="https://www.youtube.com/watch?v=oeRD_fGFhdA">variety streamer</a> named Vinny on
+			<a href="https://www.twitch.tv/vinesauce">Twitch</a> & <a href="https://www.youtube.com/c/vinesauce">YouTube</a>. His stream's
+			gimmick is <a href="https://www.youtube.com/playlist?list=PLHmR7c8zbVZRLORCvg7Thz-2PG126KmDA">corruptions</a>-- dismantling classic
+			games by randomly editing RAM while playing. He's also known for his <a href="https://redvoxband.com/">music</a>, his commentary,
+			and the community surrounding his streams.
+		</Toggle>
+		<Toggle Title="Why a Persona 5 mod?" class="typesauce">
+			A <a href="https://www.youtube.com/watch?v=d-TBs4KwWF8">running gag</a> during Vinny's streams is that chat
+			members will request that he play a Persona game, despite him having no interest in the franchise. 
+			<br>To be clear, this mod wasn't made with the intent to change his mind about that. 
+			It's intended primarily to be a funny novelty experience for fans of his stream.
+		</Toggle>
+		<Toggle Title="What platforms is it available for?" class="typesauce">
+			Primarily, this mod is being developed for the PC (Steam/Xbox Game Pass) version of P5R.
+			It may potentially be ported to PS4 and Switch at a later date, although these plans take low priority.
+			The PC port will have certain exclusive features compared to any eventual console ports, such as configurable options.
+		</Toggle>
+		<Toggle Title="How do I play this mod?" class="typesauce">
+			It's not released yet, but when it is, you can play it on PC.
+			<br><br>Extract and run Reloaded-II. Then extract the contents of the mod's .zip to the Reloaded-II/Mods folder.
+			<br>Enable the mods and launch the game through Reloaded-II. See <a href="https://docs.shrinefox.com/getting-started/persona-5-royal-pc-mod-support">here</a>
+			for more detailed instructions.
+		</Toggle>
+		<Toggle Title="Can You Still Play the Original Campaign?" class="typesauce">
+			If you want to experience the original P5R story with the party member replacements,
+			you still can. Just be aware not all of the art and voices will be replaced, since the mod was not made with this in mind. 
+			Any changes will be purely cosmetic.
+		</Toggle>
+		<Toggle Title="How Does the New Story Work?" class="typesauce">
+			You progress through Mementos as the main dungeon. When you reach the end of a block,
+			you gain access to a Palace, a larger self-contained dungeon that has been reskinned to be Vinesauce-themed.
+			<br>Most cutscenes, tutorials, interruptions etc. are gone. You can play with a 20 minute timer.
+		</Toggle>
+		<Toggle Title="How Are Confidants/Romances Handled?" class="typesauce">
+			Completely removed. Vinny is a real person, so we didn't want to make it too uncomfortable.
+			Plus, writing all of that would start to make the scope of the project too ambitious for our liking.
+			For those electing to play the original campaign, mods will probably be bundled that disable romance routes.
+		</Toggle>
+		<Toggle Title="When Will The Mod Be Released?" class="typesauce">
+			We don't know yet. Replacing all of the party member assets has taken a 
+			long time, and we still have to do the same for Personas/enemies. But most of the scripting logic has been
+			completed, so it's just that remaining cosmetic stuff that's left to implement.
+		</Toggle>
+		<Toggle Title="Will This Mod Be Streamed By Vinny?" class="typesauce">
+			This mod was not made with the primary intention of being streamed, but <a href="https://youtu.be/Fss-twiNn6M?t=190">it has been considered</a> for a one-off stream a number of times.
+			Either way, please don't pressure anyone about doing it. It will happen if it happens, and if not
+			that's okay! When the mod is finished, anybody is completely free to play it, stream it, or record it if they want.
+		</Toggle>
+	</center>
+</Border>
+
+<Border Class="vineborder">
+	<Columns>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=6 Centered=true>
+			<img class="img-responsive flex-centered" src="./images/projects/Vinesauce/3d-box.webp" style="max-height:312px;" alt="Boxart by Protokyuu" />
+		</Column>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<center>
+				<b>Support Atlus by purchasing Persona 5 Royal on <a href="https://store.playstation.com/en-us/concept/10002771">Playstation Network</a>, <a href="https://www.nintendo.com/store/products/persona-5-royal-switch/">the Nintendo eShop</a> or <a href="https://store.steampowered.com/app/1687950/Persona_5_Royal/">Steam</a>.</b>
+				<h1><div class="typesauce">DOWNLOAD</div></h1>
+				<u>Latest Version (v0.0)</u>
+				<br><a href="#"><i class="fas fa-folder-open" aria-hidden="true"></i> Reloaded II .zip (PC)</a>
+				<br><a href="#"><i class="fas fa-folder-open" aria-hidden="true"></i> Aemulus .zip (Switch)</a>
+				<br><a href="#"><i class="fas fa-folder-open" aria-hidden="true"></i> Aemulus .zip (PS4)</a>
+				<br>
+				<br>Note: This mod has not yet been released. Everything here is a placeholder!
+			</center>
+		</Column>
+	</Columns>
+</Border>
+
+<Border Class="vineborder" NoBottom=true>
+	<div class="innercontainer">
+		<center>
+			ShrineFox 2023-2026.
+			<br>Special Thanks to: <a href="https://twitter.com/tgenigma">TGE</a> (tool programming),
+			<a href="https://twitter.com/CheesyDraws">CheesyDraws</a>, <a href="https://twitter.com/NeonWillowLeaf">NeonWillowLeaf</a>
+			& <a href="https://protokyuu.newgrounds.com/">Protokyuu</a> (character & UI artwork),
+			<a href="https://twitter.com/kekulism">kekulism</a> (planning & bgm conversion),
+			<a href="https://twitter.com/lyncpk">lyncpk</a> (asset recolors & logo)
+			<br>We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with ATLUS, SEGA,
+			or any of its subsidiaries or its affiliates.<br>The official ATLUS website can be found at
+			<a href="https://atlus.com">https://atlus.com</a>. "Persona 5" is a registered trademarks of ATLUS.
+		</center>
+	</div>
+</Border>

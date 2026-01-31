@@ -1,0 +1,15 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter]
+    public string CurrentPageName { get; set; } = "";
+}
+
+@if (!string.IsNullOrEmpty(CurrentPageName))
+{
+	<div class="navipath">
+		<a href="/"><i class="fa fa-home" aria-hidden="true"></i> ShrineFox.com</a>
+		<i class="fa fa-angle-right" aria-hidden="true"></i> @CurrentPageName
+	</div>
+}

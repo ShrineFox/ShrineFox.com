@@ -1,0 +1,38 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter]
+    public string Class { get; set; } = "";
+
+    [Parameter]
+    public bool NoBottom { get; set; } = false;
+
+    [Parameter]
+    public bool NoMargin { get; set; } = false;
+
+    [Parameter] public List<string> Images { get; set; } = new();
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
+
+<div class="content @Class" style="@(NoBottom?"margin-bottom:0px;":"") @(NoMargin?"margin:0!important;border-radius:0!important;padding-bottom:0!important;":"")">
+	<div class="@Class top"> </div>
+    @if (Images.Count >= 2) {
+        <div class="corner top-left"><img src="@Images[0]"></div>
+        <div class="corner top-right"><img src="@Images[1]"></div>
+    }
+    <div class="innercontainer">
+        @ChildContent
+    </div>
+    @if (!NoBottom)
+    {
+        <div class="@Class bottom"> </div>
+    }
+    @if (Images.Count >= 4)
+    {
+        <div class="corner bottom-left"><img src="@Images[2]"></div>
+        <div class="corner bottom-right"><img src="@Images[3]"></div>
+    }
+</div>

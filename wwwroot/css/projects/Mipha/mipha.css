@@ -1,0 +1,396 @@
+@font-face {
+	font-family: 'hylian';
+	src: url('./hylian.woff2') format('woff2'), url('./hylian.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.hylian {
+	font-family: 'hylian';
+	font-weight: 100;
+	padding: 0.5em;
+	text-align: center;
+}
+
+body {
+    font-weight: 100;
+    background-image: url(../../../images/projects/Mipha/VahRuta.webp);
+    animation: 4s linear 0s infinite bg;
+    font-size: 14pt;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #165278;
+    background-blend-mode: soft-light;
+}
+
+.wrapper {
+	background: linear-gradient(50deg, rgba(23,21,54,0.6) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0) 47%, rgba(54,102,70,1) 100%);
+	position: fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index:0;
+}
+
+.logo {
+    margin-top: 2em;
+}
+
+.container {
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+}
+
+.content {
+    z-index: 2;
+    position: relative;
+    color: #fff;
+    margin-top: 100px;
+    margin-left: 4em;
+    margin-right: 4em;
+    border-radius: 1em;
+    background-color: rgba(0, 0, 0, 0.85);
+    box-shadow: 0px 1px 22px #222;
+    padding-bottom: 2em;
+}
+
+.corner {
+    height: 35px;
+    margin: 9px;
+    position: absolute;
+    opacity: 0.5;
+}
+
+    .corner.top-left 
+    {
+        top:0;
+        left:0;
+    }
+
+    .corner.top-right {
+        top: 0;
+        right: 0;
+    }
+
+    .corner.bottom-left {
+        bottom: 10px;
+        left: 0;
+    }
+
+    .corner.bottom-right {
+        bottom: 10px;
+        right: 0;
+    }
+
+    .corner img {
+        height: 50px;
+    }
+
+.miphadownarrow {
+    background-image: url(../../../images/projects/Mipha/miphadownarrow.webp);
+    top: -12px;
+    right: -1em;
+    position: relative;
+    z-index: 3;
+    width: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 25px;
+    animation: bob 2s linear infinite;
+}
+
+.miphahealing {
+    background-image: url(../../../images/projects/Mipha/miphahealing.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+}
+
+@keyframes bob {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.miphacontainer {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+a:hover, a:visited {
+	color: #FFF;
+}
+
+ul, ol {
+	list-style-type: circle;
+}
+
+.column {
+	height: auto;
+	position: relative;
+}
+
+
+.innercontainer {
+    padding: 0.5em;
+}
+
+
+
+.carousel {
+    position: relative;
+    margin-top: 2em;
+    z-index: 2;
+}
+
+.carousel-inner {
+    position: relative;
+    overflow: hidden;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.carousel-open:checked + .carousel-item {
+    position: static;
+    opacity: 100;
+}
+
+.carousel-item {
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: opacity 0.6s ease-out;
+    transition: opacity 0.6s ease-out;
+}
+
+    .carousel-item img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+    }
+
+.carousel-control {
+    background: rgba(0, 0, 0, 0.28);
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    font-size: 40px;
+    height: 40px;
+    line-height: 35px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    cursor: pointer;
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    text-align: center;
+    width: 40px;
+    z-index: 10;
+}
+
+    .carousel-control.prev {
+        left: 2%;
+    }
+
+    .carousel-control.next {
+        right: 2%;
+    }
+
+    .carousel-control:hover {
+        background: rgba(0, 0, 0, 0.8);
+        color: #aaaaaa;
+    }
+
+.carousel-indicators {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+    .carousel-indicators li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+.carousel-bullet {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 35px;
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    margin-bottom: -7px; /*Fix for safari gap*/
+    min-height: 100px;
+    max-height: 150px;
+}
+
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+    .parallax > use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 7s;
+    }
+
+    .parallax > use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 10s;
+    }
+
+    .parallax > use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 13s;
+    }
+
+    .parallax > use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+
+    .parallax > use:nth-child(5) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px,0,0);
+    }
+
+    100% {
+        transform: translate3d(85px,0,0);
+    }
+}
+
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+    .waves {
+        height: 40px;
+        min-height: 40px;
+    }
+
+    .wavecontent {
+        height: 30vh;
+    }
+
+    .carousel-inner {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .content {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+
+    .innercontainer {
+        padding: 1em;
+    }
+
+    .miphaborder.top {
+        padding-top: 2em;
+    }
+    .miphaborder.bottom {
+        padding-bottom: 2em;
+    }
+}
+
+
+    .carousel-bullet:hover {
+        color: #aaaaaa;
+    }
+
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3,
+#carousel-4:checked ~ .control-4,
+#carousel-5:checked ~ .control-5 {
+    display: block;
+}
+
+    #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+    #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+    #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet,
+    #carousel-4:checked ~ .control-4 ~ .carousel-indicators li:nth-child(4) .carousel-bullet,
+    #carousel-4:checked ~ .control-5 ~ .carousel-indicators li:nth-child(5) .carousel-bullet {
+        color: #428bca;
+    }
+
+#title {
+    width: 100%;
+    position: absolute;
+    padding: 0px;
+    margin: 0px auto;
+    text-align: center;
+    font-size: 27px;
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Open Sans', sans-serif;
+    z-index: 9999;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
+}
+
+.wavescontainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.bubble-container {
+    position: fixed;
+    top: 0;
+    opacity: 0.2;
+}
+
+.bubble {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    animation: float linear infinite;
+    animation-duration: calc(6s + var(--rand) * 8s);
+    animation-delay: calc(var(--rand) * -2s);
+    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(10vh) scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-200vh) scale(1);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,117 @@
+@page "/browse"
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.HomePageComponents
+@using PersonaGameLib
+@rendermode InteractiveServer
+@using System.Web
+@using System.Globalization
+
+<PageTitle>ShrineFox.com - Browse</PageTitle>
+<PageNavHeader CurrentPageName="Browse" />
+
+<Notice Icon="fa-thumbs-up">This section has recently been reworked! Some content may be missing.
+    <br><a href="https://shrinefox.com/blog/2026/01/12/scheduled-maintenance-starting-february-1st/">Read this blog post</a> for more information.
+</Notice>
+
+<Line Break=2/>
+
+<Container>
+    <Columns>
+        <Column WidthMax=6 WidthLarge=6 WidthMid=6>
+            <Card Title="@(new MarkupString($"Game:"))">
+                <select class="form-select"
+                        @bind="selectedGameShortName" @bind:after="_SelectedGameChanged">
+                    <option value="">Any Game</option>
+                    @foreach (var game in games)
+                    {
+                        <option value="@game.SFName">@game.Name (@game.Platform)</option>
+                    }
+                </select>
+            </Card>
+        </Column>
+        <Column WidthMax=6 WidthLarge=6 WidthMid=6>
+            <Card Title="@(new MarkupString($"Type:"))">
+                <select class="form-select"
+                        @bind="selectedPostType" @bind:after="_SelectedTypeChanged">
+                    <option value="">Any Type</option>
+                    @foreach (var postType in new string[] { "Mods", "Tools", "Guides" })
+                    {
+                        <option value="@postType.TrimEnd('s').ToLower()">@postType</option>
+                    }
+                </select>
+            </Card>
+        </Column>
+    </Columns>
+</Container>
+
+<br>@curatedPosts.Count results found.
+<Line/>
+
+@if (curatedPosts.Count > 0)
+{
+    <ShrineFoxCom.Components.Elements.Pagination CurrentPage="@currentPage" ElementsPerPage="@postsPerPage" NumberOfElements="@curatedPosts.Count" OnPageSelected="HandlePageChange" />
+    <Line />
+    @if (pagePosts.Count > 0)
+    {
+        <Columns>
+        @foreach (var post in pagePosts)
+        {
+            MarkupString image = new MarkupString();
+            @if (post.EmbedURL.Contains("youtu"))
+            {
+                image = new MarkupString($"<div class=\"yt-overlay\" style=\"display:none\"><a href=\"{@post.EmbedURL}\"><i class=\"fas fa-play-circle\"></i></a></div>");
+            }
+            else
+            {
+                image = new MarkupString($"<img class=\"inset\" src=\"{@post.EmbedURL}\">");
+            }
+            string authorsText = "";
+            @foreach (var author in post.Authors)
+            {
+            authorsText += $" <a href=\"/browse?author={author}#\">{author}</a>,";
+            }
+            MarkupString footer = new MarkupString($"<a class=\"btn btn-primary float-right\" href=\"{@post.URL}\"><i class=\"fa fa-download\"></i> Download</a>");
+            @if (post.SourceURL != "")
+            {
+                footer = new MarkupString(footer + $"<a class=\"btn btn-secondary float-right\" href=\"{@post.SourceURL}\"><i class=\"fa fa-code\"></i> Source Code</a>");
+            }
+            <Column WidthLarge=4 WidthMid=6>
+                    <Card Title="@(new MarkupString($"<a href=\"/browse?post ={@post.Id}\"><i class=\"fa fa-link\"></i></a>{@post.Title}"))"
+                          Subtitle="@(new MarkupString($"<b>{@post.Games.First()} {@post.Type} by {authorsText.TrimEnd(',')}</b><br><span style=\"font-size:10pt;\"><i class=\"fas fa-history\" aria-hidden=\"true\"></i> {@post.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture)}</span>"))"
+                        Image=image 
+                        Footer=footer>
+                        @(new MarkupString(@post.Description))
+                </Card>
+            </Column>  
+            }
+        </Columns>
+    }
+
+    @foreach (var game in games)
+    {
+        @if (selectedGameShortName == game.ShortName && !string.IsNullOrEmpty(game.GBURL))
+        {
+            <Notice Icon="/images/gb.png">
+                <p>
+                    Looking for more mods, guides, and tools for @game.ShortName (@game.Platform)?
+                    <br>Check out this section of Gamebanana.com!
+                </p>
+
+                @foreach (var g in games)
+                {
+                    <ul>
+                        @if (selectedGameShortName == g.ShortName && !string.IsNullOrEmpty(g.GBURL))
+                        {
+                            <li><a href="https://gamebanana.com/mods/games/16951">@g.ShortName mods for @g.Platform</a></li>
+                        }
+                    </ul>
+                }
+            </Notice>
+            break;
+        }
+    }
+    <ScrollToTop/>
+
+    <ShrineFoxCom.Components.Elements.Pagination CurrentPage="@currentPage" ElementsPerPage="@postsPerPage" NumberOfElements="@curatedPosts.Count" OnPageSelected="HandlePageChange" />
+}

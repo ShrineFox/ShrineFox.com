@@ -1,0 +1,86 @@
+﻿@page "/"
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Home_Page
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.Pages.WebApps
+
+<PageTitle>ShrineFox.com - Home</PageTitle>
+<PageNavHeader CurrentPageName="Home Page"/>
+
+<!--Welcome Text-->
+<div class="text-center">
+    <br>
+    <h1 class="display-4">Welcome</h1>
+    <h5>
+        I'm a modder & developer working on <a href="/browse/">Persona mods, tools & guides</a>.
+    </h5>
+    <p>
+        I write about ways you can personalize your games, consoles and devices.
+    </p>
+    <br />
+    Ready to learn more?
+    <br><h5 class="display-5"><a href="/GetStarted"><i class="fa-solid fa-circle-arrow-right"></i> Get Started</a> with modding Persona.</h5>
+    Or,
+    <br><h5 class="display-5"><a href="/Browse"><i class="fa-solid fa-magnifying-glass-arrow-right"></i> Browse</a> mods & tools.</h5>
+</div>
+
+<Line Break="3"/>
+
+<!--Latest Content-->
+<Columns>
+    <Column WidthMax=7 WidthMid=12>
+        <center><h2>Videos</h2></center>
+        <YouTubePlaylist />
+        <Line Break="3"/>
+        <center><h2>Popular Releases</h2></center>
+
+        <!--Project/Blog Links-->
+        <Columns>
+            <Column WidthMax=6 WidthLarge=12 WidthMid=12>
+                <a href="https://github.com/ShrineFox/Persona-5-Mod-Menu" class="projlink">
+                    <div class="projbutton">
+                        <h2>Persona 5 Mod Menu</h2>
+                        <img src="./images/projects/ModMenu/p5rmodmenu.webp" />
+                    </div>
+                </a>
+                <br><a href="/EarthBound" class="projlink">
+                    <div class="projbutton">
+                        <h2>EarthBound Mod Menu</h2>
+                        <img src="./images/projects/EarthBound/ebmodmenu_1.webp" />
+                    </div>
+                </a>
+                <br><a href="/Adachi" class="projlink">
+                    <div class="projbutton">
+                        <h2>P5 Adachi Mod (PS3)</h2>
+                        <img src="./images/projects/Adachi/magatsu.webp" />
+                    </div>
+                </a>
+            </Column>
+            <Column WidthMax=6 WidthLarge=12 WidthMid=12>
+                <a href="/Vinesauce" class="projlink">
+                    <div class="projbutton">
+                        <h2>P5R Vinesauce Mod</h2>
+                        <img src="./images/projects/Vinesauce/vine_logo.webp" />
+                    </div>
+                </a>
+                <br><a href="/Mipha" class="projlink">
+                    <div class="projbutton">
+                        <h2>BotW Mipha's Grace Mod</h2>
+                        <img src="./images/projects/Mipha/LoMeephers.webp">
+                    </div>
+                </a>
+                <br><a href="/Projects" class="projlink">
+                    <div class="projbutton">
+                        <h2>See More Projects</h2>
+                    </div>
+                </a>
+            </Column>
+        </Columns>
+    </Column>
+    <Column WidthMax=5 WidthMid=12>
+        <center><h2>Blog Posts</h2></center>
+        <BlogRssFeed />
+    </Column>
+</Columns>
+
+<Line Break="2" />

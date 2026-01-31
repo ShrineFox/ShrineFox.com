@@ -1,0 +1,98 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter] public EventCallback<int> OnPageSelected { get; set; }
+
+    private void HandlePageClick(int pageNumber = -2)
+    {
+        OnPageSelected.InvokeAsync(pageNumber);
+    }
+
+    [Parameter]
+    public int CurrentPage { get; set; } = 0;
+
+    [Parameter]
+    public int NumberOfElements { get; set; } = 0;
+
+    [Parameter]
+    public int ElementsPerPage { get; set; } = 15;
+
+    private int NumberOfPages { get; set; } = 0;
+    private int lastPageDisplayed { get; set; } = 0;
+
+    protected override void OnParametersSet()
+    {
+        NumberOfPages = RoundUpDivision(NumberOfElements, ElementsPerPage);
+    }
+
+    public static int RoundUpDivision(int numerator, int denominator)
+    {
+        if (denominator == 0)
+            return 0;
+
+        int quotient = numerator / denominator;
+        if (numerator % denominator != 0)
+            quotient++;
+        return quotient;
+    }
+
+    private async Task ButtonHandler(int value)
+    {
+        await JS.InvokeVoidAsync("OnClickEvent", value);
+    }
+}
+
+@if (NumberOfPages > 0 && NumberOfElements > ElementsPerPage)
+{
+    <ul class="pagination">
+        @if (CurrentPage < 2)
+        {
+            <li class="page-item disabled"><a>Previous</a></li>
+        }
+        else
+        {
+            <li class="page-item" @onclick="() => HandlePageClick(CurrentPage - 1)"><a>Prev</a></li>
+        }
+
+        @for (int i = 1; i <= NumberOfPages; i++)
+        {
+            // Conditions for displaying a page
+            bool shouldDisplay = 
+                (i <= 3) || // Always show the first 3 pages
+                (i >= CurrentPage - 3 && i <= CurrentPage + 3) || // Show a range around the current page
+                (i > NumberOfPages - 3); // Always show the last 3 pages
+
+            if (shouldDisplay)
+            {
+                // Insert an ellipsis if there's a gap between the last displayed page and the current one
+                if (lastPageDisplayed > 0 && i > lastPageDisplayed + 1)
+                {
+                    <li class="page-item disabled"><a>...</a></li>
+                }
+
+                int pageNumber = i;
+                if (i == CurrentPage)
+                {
+                    <li class="page-item active"><a>@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item" @onclick="() => HandlePageClick(pageNumber)"><a>@i</a></li>
+                }
+
+                lastPageDisplayed = i; // Update the last displayed page
+            }
+        }
+
+        @if (CurrentPage < NumberOfPages)
+        {
+            <li class="page-item" @onclick="() => HandlePageClick(CurrentPage + 1)"><a>Next</a></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><a>Next</a></li>
+        }
+    </ul>
+}
+

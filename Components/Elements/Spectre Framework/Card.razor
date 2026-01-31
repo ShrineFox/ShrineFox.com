@@ -1,0 +1,43 @@
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter] public MarkupString Title { get; set; } = new MarkupString("");
+
+    [Parameter] public MarkupString Subtitle { get; set; } = new MarkupString("");
+
+    [Parameter] public MarkupString Image { get; set; } = new MarkupString("");
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public MarkupString Footer { get; set; } = new MarkupString("");
+}
+
+<div class="card">
+    @if (!string.IsNullOrEmpty(Image.Value))
+    {
+        <div class="card-image">
+            @Image
+        </div>
+    }
+    <div class="card-header">
+        <div class="card-title h3">
+            @Title
+        </div>
+        <div class="card-subtitle text-muted">
+            @Subtitle
+        </div>
+    </div>
+    <div class="card-body">
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+    </div>
+    <br>
+    <div class="card-footer">
+        @Footer
+    </div>
+</div>
+    

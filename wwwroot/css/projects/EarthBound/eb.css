@@ -1,0 +1,103 @@
+@font-face {
+	font-family: 'ebfont';
+	src: url('./ebfont.woff2') format('woff2'), url('./ebfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@keyframes bg {
+  from {
+	background-position:  256px 0;
+  }
+  
+  to {
+	background-position:  0 256px;
+  }
+}
+
+@keyframes splat {
+  from {
+	background-position:  0px 512px;
+  }
+  
+  to {
+	background-position:  0px 0px;
+  }
+}
+
+body {
+	font-family: 'ebfont';
+	font-weight: 100;
+	background-image: url(../../../images/projects/EarthBound/eb_checkerboard.webp);
+	animation: 4s linear 0s infinite bg;
+	background-repeat: repeat;
+	font-size: 17pt;
+}
+
+.content.ebborder
+{
+	height:auto!important;
+}
+
+.wrapper {
+	background: linear-gradient(50deg, rgba(23,21,54,0.6) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0) 47%, rgba(54,102,70,1) 100%);
+	position: fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index:0;
+}
+
+.content {
+	z-index: 2;
+	position: relative;
+	background-color: #101010;
+	color: #fff;
+	margin-bottom: 120px;
+	box-shadow: 0px 1px 22px #222;
+}
+
+.ebborder {
+  background-repeat: repeat-x;
+  height: 32px;
+}
+
+	.ebborder.top {
+		background-image: url(../../../images/projects/EarthBound/eb_top_row.webp);
+		margin-bottom: .5em;
+	}
+
+	.ebborder.bottom {
+		background-image: url(../../../images/projects/EarthBound/eb_bottom_row.webp);
+		margin-top: .5em;
+	}
+
+a {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+a:hover, a:visited {
+	color: #FFF;
+}
+
+ul, ol {
+	list-style-type: circle;
+}
+
+.column {
+	height: auto;
+	position: relative;
+}
+.column:hover img {
+	max-height: 100%;
+	max-width: 100%;
+	-webkit-transition: width 1s, height 1s;
+	transition: width 1s, height 1s;
+}
+
+.innercontainer {
+	margin-left:2em;
+	margin-right:2em;
+}

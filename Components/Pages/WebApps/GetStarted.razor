@@ -1,0 +1,240 @@
+@page "/getstarted"
+@using BlazorDownloadFile
+@using PersonaGameLib
+@rendermode InteractiveServer
+@using System.Web
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+
+<PageTitle>ShrineFox.com - Get Started</PageTitle>
+<PageNavHeader CurrentPageName="Get Started"/>
+
+<Notice Icon="fa-wand-magic-sparkles">
+    Apply <b>fan-made patches</b> to your game to play with mods.
+    <br>This page will guide you through generating and applying these patches.
+</Notice>
+
+<Line Break="2"/>
+
+<Container>
+
+</Container>
+@if (selectedGame == null)
+{
+    <Card Title="@(new MarkupString("<i class=\"fa-solid fa-gamepad\"></i> Game Platform"))"
+          Subtitle="@(new MarkupString("Choose which console or device the game was released on."))">
+        <select class="form-select column col-9"
+                @bind="selectedPlatformShortName" @bind:after="_SelectedPlatformChanged">
+            <option value="">---Select a Platform---</option>
+            @foreach (var platform in PersonaGameLib.PersonaGames.Platforms)
+            {
+                <option value="@platform.ShortName">@platform.Name</option>
+            }
+        </select>
+        <button class="btn btn-primary float-right column col-3" @onclick="_SelectedPlatformChanged">Next</button>
+
+    </Card>
+
+    @if (selectedPlatform != null)
+    {
+        <Card Title="@(new MarkupString("<i class=\"fa-solid fa-earth-americas\"></i> Title & Region"))" 
+                Subtitle="@(new MarkupString("Choose which title to mod."))">
+            If a game is not listed, it may still be moddable, but documentation is lacking.
+            Look for info on <a href="/wiki">the Wiki</a>, or ask on <a href="/forum">the forum</a> or <a href="https://discord.gg/naoto">this Discord server</a>.
+            <select class="form-select column col-9"
+                @bind="selectedGameShortName" @bind:after="_SelectedGameChanged">
+                <option value="">---Select a Game---</option>
+                @foreach (var game in selectedPlatform.Games)
+                {
+                    @if (game.Region != "")
+                    {
+                        <option value="@game.ShortName|@game.Region">
+                            @game.Name (@game.Region)
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@game.ShortName|@game.Region">
+                            @game.Name
+                        </option>
+                    }
+                }
+            </select>
+            <button class="btn btn-primary float-right column col-3" @onclick="_SelectedGameChanged">Next</button>
+        </Card>
+    }
+}
+
+@if (selectedGame != null)
+{
+    <!--Game Info-->
+    <Card>
+        <a href="/getstarted?platform=@selectedPlatform.ShortName&game=@selectedGame.ShortName&region=@selectedGame.Region&target=@selectedTarget"><i class="fa fa-link"></i></a>
+        Selected Game: @selectedGame.Name @selectedGame.Region (@selectedPlatform.ShortName)
+
+        Title ID: @selectedGame.TitleID
+
+        <Container>
+            <Columns>
+                <Column WidthMax=6 WidthLarge=6>
+                    <img src="@selectedGame.ImageUrl" style="max-height:150px;" class="img-responsive img-fit-contain">
+                    <br><h4><a style="cursor: pointer" @onclick="ResetGameSelection"><i class="fa-solid fa-circle-arrow-left"></i> Back to Game Selection</a></h4>
+                </Column>
+                <Column WidthMax=6 WidthLarge=6>
+                    <b>Need help installing these patches?</b>
+                    <br><a target='_blank' href="https://amicitia.miraheze.org/wiki/@selectedGame.Name">Learn about @selectedGame.ShortName modding</a> on the Wiki!
+                    <br><br>While you're here, see also:
+                    <br>
+                    <ul>
+                        <li><a target="_blank" href="/browse?game=@selectedGame.ShortName&type=mod">@selectedGame.ShortName Mods</a></li>
+                        <li><a target="_blank" href="/browse?game=@selectedGame.ShortName&type=tool">@selectedGame.ShortName Modding Tools</a></li>
+                        <li><a target="_blank" href="/browse?game=@selectedGame.ShortName&type=guide">@selectedGame.ShortName Modding Guides</a></li>
+                    </ul>
+                    @if (selectedGame.ShortName == "P5")
+                    {
+                        <br>
+                
+                        <p>
+                            Consider using DeathChaos25's <a target='_blank' href=\"/blog/2022/01/26/setting-up-persona-5-ex/\">Persona 5 EX mod</a>!" +
+                            <br><a style="cursor: pointer" @onclick="_SwitchToP5EX">Click here to switch to Persona 5 EX compatible patches</a>.
+                        </p>
+                    }
+                </Column>
+            </Columns>
+        </Container>
+    </Card>
+
+    <!--Target Platform-->
+    if (selectedPlatform.EmulatorName != "")
+    {
+        <Card Title="@(new MarkupString("<i class=\"fa-solid fa-gamepad\"></i> Target Platform"))"
+                Subtitle="@(new MarkupString("Choose whether you're emulating the game on PC or playing it on a console."))">
+            <select class="form-select column col-9"
+                    @bind="selectedTarget" @bind:after="_SelectedTargetChanged">
+                <option value="emulator">@selectedPlatform.EmulatorName</option>
+                <option value="console">Console</option>
+            </select>
+        </Card>
+    }
+
+    <!--PPU Hash Entry-->
+    if (selectedPlatform.ShortName == "PS3" && selectedTarget == "emulator")
+    {
+        <Card Title="@(new MarkupString("Enter PPU Hash"))"
+              Subtitle="@(new MarkupString("Required for RPCS3. Launch the game and search for \"PPU executable hash]\" in rpcs3.log."))">
+            <input type="text" @bind="ppuHash" class="form-select column col-9">
+        </Card>
+    }
+
+    <!--Setup Instructions-->
+    <Card Title="@(new MarkupString("<i class=\"fa-solid fa-circle-info\"></i> Setup Info"))">
+        Take the first steps modding @selectedGame.ShortName @selectedGame.Region for @selectedPlatform.ShortName.
+        <br><b>Instructions</b>:
+        <Line Break="2"/>
+        <Notice>
+            <ul>
+                @((MarkupString)gameSetupInstructions)
+            </ul>
+        </Notice>
+    </Card>
+
+    <!--Patch Selection-->
+    @if (selectedGame.Patches.Count > 0)
+    {
+        <Card Title="@(new MarkupString("Patches"))"
+              Subtitle="@(new MarkupString("Mouse over each patch to view the description."))">
+            <Container>
+                <Columns>
+                    <Column WidthMax=6 WidthLarge=6>
+                        <a @onclick="_CheckAll"><i class="fa-solid fa-list-check"></i> Check All</a> | <a @onclick="_UncheckAll"><i class="fa-solid fa-list"></i> Uncheck All</a>
+                        <br><br>
+                        @foreach (var patch in selectedGame.Patches)
+                        {
+                            <span onmouseover="document.getElementById('desc').innerHTML='<b>@patch.Name</b> @patch.Version by @patch.Author<br><br>@HttpUtility.HtmlEncode(patch.Description)';">
+                                @if (patch.AlwaysOn)
+                                {
+                                    <input type="checkbox" checked disabled />
+                                }
+                                else if (selectedGame.Platform == "PS4" && !patch.Enabled)
+                                {
+                                    <input type="checkbox" disabled />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" @bind="patch.Enabled" />
+                                }
+                                <label> @patch.Name</label>
+                            </span>
+                            <br>
+                        }
+                    </Column>
+                    <Column WidthMax=6 WidthLarge=6>
+                        <Notice Icon="fa-lightbulb" IconType="fa-regular">
+                            <span id="desc">Hover over a patch to see the description!</span>
+                        </Notice>
+                        <Line Break="3"/>
+                        @if (selectedGame.Platform == "PS4" || selectedGame.Platform == "PSV" || selectedGame.Platform == "PSP")
+                        {
+                            <p>Read more about these patches:
+                                <ul>
+                                    @if (selectedGame.Platform == "PSV")
+                                    {
+                                        @if (selectedGame.ShortName == "P4G")
+                                        {
+                                            <li><a>https://github.com/zarroboogs/p4g-patches</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a>https://github.com/zarroboogs/pXd-patches</a></li>
+                                        }
+                                    }
+                                    else if (selectedGame.Platform == "PSP")
+                                    {
+                                        <li><a>https://github.com/zarroboogs/p3p-patches</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a>https://github.com/zarroboogs/ppp</a></li>
+                                        <Line Break="2"/>
+                                        <p>At this time, only a certain combination of patches is available pre-made.</p>
+                                    }
+                                </ul>
+                            </p>
+                        }
+                    </Column>
+                </Columns>
+            </Container>
+            <Line Break="2"/>
+            <!--Download Button(s)-->
+            @if (selectedPlatform.ShortName == "PS3")
+            {
+                @if (selectedTarget == "emulator")
+                {
+                    <a class="btn btn-primary" @onclick="_DownloadPatchYML" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download PATCH.YML</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" @onclick="_DownloadOldPatchYML" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download PATCH.YML</a>
+                }
+            }
+            else if (selectedPlatform.ShortName == "PS2")
+            {
+                <a class="btn btn-primary" @onclick="_DownloadPnach" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download (@selectedGame.CRC).PNACH</a>
+            }
+            else if (selectedPlatform.ShortName == "PS4")
+            {
+                <a class="btn btn-primary" @onclick="_DownloadPkg" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download Update .PKG</a>
+            }
+            else if (selectedPlatform.ShortName == "PSV")
+            {
+                <a class="btn btn-primary" @onclick="_DownloadEboot" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download .EBOOT</a>
+            }
+            else if (selectedPlatform.ShortName == "PSP")
+            {
+                <a class="btn btn-primary" @onclick="_DownloadIni" target="_blank" style="font-size: 14pt; padding: 1em;"><i class="fa-solid fa-download"></i> Download .INI</a>
+            }
+        </Card>
+    }
+}
+
+

@@ -1,0 +1,170 @@
+@inject IJSRuntime JS
+
+@code {
+    [Parameter] public List<string> Images { get; set; } = new();
+
+    private string GenerateDynamicCss()
+    {
+        if (Images.Count == 0)
+            return "";
+
+        var css = new System.Text.StringBuilder();
+
+        // Show controls only when the corresponding image is checked
+        for (int i = 0; i < Images.Count; i++)
+        {
+            css.Append($@"
+        #carousel-{i + 1}:checked ~ .control-{i + 1} {{
+            display: block;
+        }}
+        #carousel-{i + 1}:checked ~ .carousel-indicators li:nth-child({i + 1}) .carousel-bullet {{
+            color: #428bca;
+        }}
+        ");
+        }
+
+        // Generate parallax animation rules dynamically
+        for (int i = 0; i < Images.Count; i++)
+        {
+            int delay = -2 - i; // Incrementally decreasing delay
+            int duration = 7 + (i * 3); // Increasing duration
+
+            css.Append($@"
+        .parallax > use:nth-child({i + 1}) {{
+            animation-delay: {delay}s;
+            animation-duration: {duration}s;
+        }}
+        ");
+        }
+
+        return css.ToString();
+    }
+}
+
+<div class="carousel">
+    <div class="carousel-inner">
+        @for (int i = 0; i < Images.Count; i++)
+        {
+            string radioId = $"carousel-{i + 1}";
+            string prevId = i == 0 ? $"carousel-{Images.Count}" : $"carousel-{i}";
+            string nextId = i == Images.Count - 1 ? "carousel-1" : $"carousel-{i + 2}";
+            bool isChecked = i == 0; // First image is checked by default
+
+            <input class="carousel-open" type="radio" id="@radioId" name="carousel" aria-hidden="true" hidden="" checked="@(isChecked)">
+            <div class="carousel-item">
+                <img src="@Images[i]">
+            </div>
+
+            <label for="@prevId" class="carousel-control prev control-@(i+1)">‹</label>
+            <label for="@nextId" class="carousel-control next control-@(i+1)">›</label>
+        }
+
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < Images.Count; i++)
+            {
+                string radioId = $"carousel-{i + 1}";
+                <li>
+                    <label for="@radioId" class="carousel-bullet">•</label>
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+<style>
+    .carousel {
+        position: relative;
+        margin-top: 2em;
+        z-index: 2;
+    }
+
+    .carousel-inner {
+        position: relative;
+        overflow: hidden;
+        width: 60%;
+        margin-left: 20%;
+    }
+
+    .carousel-open:checked + .carousel-item {
+        position: static;
+        opacity: 100;
+    }
+
+    .carousel-item {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.6s ease-out;
+    }
+
+        .carousel-item img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            width: 100%;
+        }
+
+    .carousel-control {
+        background: rgba(0, 0, 0, 0.28);
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        display: none;
+        font-size: 40px;
+        height: 40px;
+        line-height: 35px;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        text-align: center;
+        width: 40px;
+        z-index: 10;
+    }
+
+        .carousel-control.prev {
+            left: 2%;
+        }
+
+        .carousel-control.next {
+            right: 2%;
+        }
+
+        .carousel-control:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #aaaaaa;
+        }
+
+    .carousel-indicators {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 2%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+    }
+
+        .carousel-indicators li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+    .carousel-bullet {
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-size: 35px;
+    }
+
+        .carousel-bullet:hover {
+            color: #aaaaaa;
+        }
+
+    .parallax > use {
+        animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+    }
+
+    @* Dynamic CSS *@
+    @((MarkupString)$"<style>{GenerateDynamicCss()}</style>")
+</style>
