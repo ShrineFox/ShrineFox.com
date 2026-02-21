@@ -1,5 +1,40 @@
-﻿<div id="YourPlayerID"></div>
-<script src="https://apis.google.com/js/platform.js"></script>
+﻿@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.Pages.SiteInfo
+<Columns>
+    <Column WidthMax=8 WidthLarge=12 WidthMid=12>
+        <div class="video-responsive" id="ytEmbed">
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/@vids.First().Url?list=PLU6By7bu-RSsXcvqRkDdh3R4OGva8_No4"
+                    title="ShrineFox YouTube Uploads"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+        </div>
+    </Column>
+    <Column WidthMax=4 WidthLarge=12 WidthMid=12>
+        <div class="ytv-list">
+            <div class="ytv-list-inner">
+                <ul>
+                    @foreach(var vid in vids)
+                    {
+                        <li class="@vid.Class">
+                            <a class="ytv-clear"
+                               href="https://www.youtube.com/watch?v=@vid.Url&list=PLU6By7bu-RSsXcvqRkDdh3R4OGva8_No4">
+                                <div class="ytv-thumb">
+                                    <img src="https://i.ytimg.com/vi/@vid.Url/mqdefault.jpg">
+                                </div>
+                                <div class="ytv-content">
+                                    <h5>@vid.Title</h5>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </Column>
+</Columns>
+
 <br>
 <div class="card" style="display: table-row;">
     <div class="card-footer">
@@ -13,14 +48,67 @@
     </div>
 </div>
 
+<style>
+    media only screen and (max-width: 992px) {
+        .ytv-list {
+            width: 100% !important;
+        }
+    }
+    .ytv-list {
+        width: 100% !important;
+    }
+    .ytv-list {
+        position: relative !important;
+        width: 100% !important;
+    }
 
-<!--YouTube Player Load-->
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function (event) {
-        var controller = new YTV('YourPlayerID', {
-            channelId: 'UCrB3t1zAQPwAeWtI8RZIOvQ',
-            playlist: 'PLU6By7bu-RSsXcvqRkDdh3R4OGva8_No4',
-            responsive: true
-        });
-    });
-</script>
+    .ytv-list-inner {
+        position: relative !important;
+        height: 400px !important;
+    }
+</style>
+
+@code 
+{
+    public class YTVid
+    {
+        public string Url { get; set; } = "";
+        public string Thumb { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Class { get; set; } = "";
+    }
+
+    List<YTVid> vids = new List<YTVid>()
+    {
+        new YTVid() {  Url = "3uB57WVdCeU", Class = "ytv-active",
+            Title = "P5R Modding Guide #10 - Battle Data Editing (TBL)" },
+        new YTVid() {  Url = "3qzzrcCq5sk",
+            Title = "Persona 5 Vinesauce Mod - Credits Sequence" },
+        new YTVid() {  Url = "vXQtfvUUnqU",
+            Title = "P5R Modding Guide #9 - BGME & Costume Framework" },
+        new YTVid() {  Url = "BwnR8sDJnu4",
+            Title = "Vinesauce Mysteries - Full Opening (HD 1080p)" },
+        new YTVid() {  Url = "g87EOaaSpY4",
+            Title = "P5R Modding Guide #8 - Models & Animations (GMD/GAP)" },
+        new YTVid() {  Url = "awPOQCCQzWI",
+            Title = "P5R Modding Guide #1 - Installing Mods" },
+        new YTVid() {  Url = "1NjVhlyBrFA",
+            Title = "Persona 4 Golden (PC 64-Bit) Freecam Mod Release" },
+        new YTVid() {  Url = "LBg1NGfGaH8",
+            Title = "EarthBound Mod Menu - MOTHER Direct 2024 Release Trailer" },
+        new YTVid() {  Url = "cMvoJUaZ_fc",
+            Title = "Persona 5 Royal: Vinesauce Mod - 2024 Teaser Trailer" },
+        new YTVid() {  Url = "ZeEKjIHEm7s",
+            Title = "P5V Mod - Vargskelethor Joel Teaser" },
+        new YTVid() {  Url = "w_oXrO2pAEE",
+            Title = "Zelda TotK - Better Sages Mod" },
+        new YTVid() {  Url = "1tOmRSvuM_Q",
+            Title = "SMTV Mod - Orange/Green Nahobino" },
+        new YTVid() {  Url = "1flj0titJGU",
+            Title = "Playable Sans in Mario Party Superstars Mod (Release Trailer)" },
+        new YTVid() {  Url = "AK60M1zDv2k",
+            Title = "Persona 5 Adachi Mod (Release Trailer)" },
+        new YTVid() {  Url = "8ak72CR-L20",
+            Title = "Zelda BotW Mod - Kamen Rider Den-O" },
+    };
+}

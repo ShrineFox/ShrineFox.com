@@ -13,8 +13,19 @@
 }
 
 <div class="toggle">
-    <div class="toggle-title @Class">@Title</div>
+    <div class="toggle-title @Class" onclick="toggleSection(this)">@Title</div>
     <div class="toggle-inner">
         @ChildContent
     </div>
 </div>
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("initToggles");
+        }
+    }
+}

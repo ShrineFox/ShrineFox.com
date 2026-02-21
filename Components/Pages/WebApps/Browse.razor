@@ -58,18 +58,11 @@
         @foreach (var post in pagePosts)
         {
             MarkupString image = new MarkupString();
-            @if (post.EmbedURL.Contains("youtu"))
-            {
-                image = new MarkupString($"<div class=\"yt-overlay\" style=\"display:none\"><a href=\"{@post.EmbedURL}\"><i class=\"fas fa-play-circle\"></i></a></div>");
-            }
-            else
-            {
-                image = new MarkupString($"<img class=\"inset\" src=\"{@post.EmbedURL}\">");
-            }
+            image = new MarkupString($"<img class=\"inset\" src=\"{@post.EmbedURL}\">");
             string authorsText = "";
             @foreach (var author in post.Authors)
             {
-            authorsText += $" <a href=\"/browse?author={author}#\">{author}</a>,";
+                authorsText += $" <a href=\"/browse?author={author}#\">{author}</a>,";
             }
             MarkupString footer = new MarkupString($"<a class=\"btn btn-primary float-right\" href=\"{@post.URL}\"><i class=\"fa fa-download\"></i> Download</a>");
             @if (post.SourceURL != "")
@@ -77,7 +70,7 @@
                 footer = new MarkupString(footer + $"<a class=\"btn btn-secondary float-right\" href=\"{@post.SourceURL}\"><i class=\"fa fa-code\"></i> Source Code</a>");
             }
             <Column WidthLarge=4 WidthMid=6>
-                    <Card Title="@(new MarkupString($"<a href=\"/browse?post ={@post.Id}\"><i class=\"fa fa-link\"></i></a>{@post.Title}"))"
+                    <Card Title="@(new MarkupString($"<a href=\"/browse?post={@post.Id}\"><i class=\"fa fa-link\"></i></a>{@post.Title}"))"
                           Subtitle="@(new MarkupString($"<b>{@post.Games.First()} {@post.Type} by {authorsText.TrimEnd(',')}</b><br><span style=\"font-size:10pt;\"><i class=\"fas fa-history\" aria-hidden=\"true\"></i> {@post.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture)}</span>"))"
                         Image=image 
                         Footer=footer>

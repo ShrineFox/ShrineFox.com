@@ -85,13 +85,13 @@ button:focus {
 .card {
     background: rgba(var(--accent), 0.1) !important;
     margin-bottom: var(--margin);
-    border: none !important;
+    border: 2px solid rgba(var(--accent), 0.1) !important;
     border-radius: 8px;
     box-shadow: 1px 1px 3px rgba(var(--accent), 0.1), -1px 1px 3px rgba(var(--accent), 0.1);
     z-index: 3;
     margin-left: 1em;
     margin-right: 1em;
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
     box-shadow: 1px 4px 6px 0px #0000001A;
 }
 

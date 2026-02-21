@@ -23,7 +23,7 @@ namespace ShrineFoxCom.Components.Pages.WebApps
         private string selectedPostId = "";
         private int postsPerPage = 15;
         private int currentPage = 1; // Ensure currentPage is set to 1
-        private List<Post> posts = new List<Post>();
+        public List<Post> posts = new List<Post>();
         private List<Post> curatedPosts = new List<Post>();
         private List<Post> pagePosts = new List<Post>();
         private bool alreadyRan = false;
@@ -67,8 +67,9 @@ namespace ShrineFoxCom.Components.Pages.WebApps
             /* posts = await GetPostsFromTSV(@"C:\Users\ShrineFox\Documents\amicitia.tsv");
             await UploadPostData();
             await RemoveDuplicatePostData(); */
-
-            posts = await GetPostsFromDatabaseAsync();
+            //DumpPostsFromTSV(@"C:\Users\ShrineFox\Documents\amicitia.tsv");
+            //posts = await GetPostsFromDatabaseAsync();
+            await GetPostsFromCodeBehind();
             posts.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
             posts.Reverse();
             UpdateCuratedPosts();

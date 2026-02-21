@@ -1,3 +1,5 @@
+@inject IJSRuntime JS
+
 <footer>
     <!--ShrineFox Footer-->
     <hr>
@@ -29,7 +31,7 @@
     </div>
     <!--Theme Select-->
     <div class="modal modal-md" id="theme-modal">
-        <a href="#close" @onclick:preventDefault id="theme-modal-close" class="modal-overlay" aria-label="Close"></a>
+        <a id="theme-modal-close" class="modal-overlay" aria-label="Close" onclick="ThemeModal.close()"></a>
         <div class="modal-container">
             <div class="modal-body">
                 <div class="columns">
@@ -79,3 +81,14 @@
     </div>
     <!--End ShrineFox Footer-->
 </footer>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("initUI");
+            await JS.InvokeVoidAsync("initTheme");
+        }
+    }
+}

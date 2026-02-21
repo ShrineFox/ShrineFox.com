@@ -12,11 +12,19 @@
 	text-align: center;
 }
 
+@font-face {
+    font-family: 'botw';
+    src: url('./wanpaku.woff2') format('woff2'), url('./wanpaku.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
+    font-family: 'botw';
     font-weight: 100;
     background-image: url(../../../images/projects/Mipha/VahRuta.webp);
     animation: 4s linear 0s infinite bg;
-    font-size: 14pt;
+    font-size: 12pt;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -393,4 +401,8 @@ ul, ol {
         transform: translateY(-200vh) scale(1);
         opacity: 0;
     }
+}
+
+.column {
+    padding: 50px;
 }

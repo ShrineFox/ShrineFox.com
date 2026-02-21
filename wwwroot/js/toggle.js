@@ -1,9 +1,17 @@
-﻿jQuery(document).ready(function () {
-    // If any toggle-title has "active", show its corresponding .toggle-inner
-    jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+﻿window.toggleSection = function (el) {
+    el.classList.toggle("active");
 
-    // Click event for toggling
-    jQuery(".toggle").on("click", ".toggle-title", function () {
-        jQuery(this).toggleClass("active").closest('.toggle').find('.toggle-inner').slideToggle(200);
-    });
-});
+    const inner = el.closest(".toggle")?.querySelector(".toggle-inner");
+    if (!inner) return;
+
+    inner.style.overflow = "hidden";
+    inner.style.transition = "max-height 0.25s ease";
+
+    if (!inner.style.maxHeight || inner.style.maxHeight === "0%") {
+        inner.style.display = "block";
+        inner.style.maxHeight = "100%";
+    } else {
+        inner.style.maxHeight = "0%";
+        inner.style.display = "none";
+    }
+};

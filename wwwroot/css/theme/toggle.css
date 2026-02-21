@@ -53,3 +53,8 @@
 	display: block;
 	padding: 25px 25px 14px;
 }
+
+
+.toggle-inner {
+	display: none;
+}
