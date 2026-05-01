@@ -22,7 +22,7 @@ namespace ShrineFoxCom.Components.Pages.WebApps
                         gameSetupInstructions += "<li>Run Aemulus Package Manager and configure the settings to add mod support.</li>";
                         break;
                     case "P3P":
-                        gameSetupInstructions += "<li>Follow <a target='_blank' href=\"/news/?p=266\">this guide</a> to set up mod support.</li>";
+                        gameSetupInstructions += "<li>Follow <a target='_blank' href=\"/blog/?p=266\">this guide</a> to set up mod support.</li>";
                         break;
                     case "P3R":
                     case "P5R":
@@ -47,7 +47,7 @@ namespace ShrineFoxCom.Components.Pages.WebApps
             }
             else if (selectedPlatform.ShortName == "3DS")
                 gameSetupInstructions += "<li>Use <a target='_blank' href=\"https://www.7-zip.org/\">7zip</a> to extract the .7Z file.</li>" +
-                    "<li>Read <a target='_blank' href=\"/guides/2021/08/15/using-pq2-patches/\">this guide</a> to apply the patch to the game.</li>";
+                    "<li>Read <a target='_blank' href=\"/blog/2021/08/15/using-pq2-patches/\">this guide</a> to apply the patch to the game.</li>";
             else if (selectedPlatform.ShortName == "PSP")
                 gameSetupInstructions += "<li>Read <a href=\"https://github.com/zarroboogs/p3p-patches#usage\">these instructions</a> to use the .ini with an emulator, or to apply the patch to the game's .EBOOT for playing on console.</li>" +
                     "<li>In the latter case, you can use <a href=\"/browse?post=umdgen\">UMDGen</a> to unpack and repack the .ISO in order to replace the eboot.</li>";
@@ -58,16 +58,16 @@ namespace ShrineFoxCom.Components.Pages.WebApps
 
             // Instructions for games with patch downloads
             if (selectedPlatform.ShortName == "PS2")
-                gameSetupInstructions += "<li>Read <a target='_blank' href=\"/guides/2020/04/10/modding-using-hostfs-on-pcsx2-p3-p4-smt3/\">this guide</a> " +
-                        "to install the PNACH file on PCSX2, or <a target='_blank' href=\"/guides/2020/03/29/loading-modded-files-in-persona-3-4-ps2/\">this one</a> to apply modded files to an ISO (for other platforms).</li>" +
+                gameSetupInstructions += "<li>Read <a target='_blank' href=\"/blog/2020/04/10/modding-using-hostfs-on-pcsx2-p3-p4-smt3/\">this guide</a> " +
+                        "to install the PNACH file on PCSX2, or <a target='_blank' href=\"/blog/2020/03/29/loading-modded-files-in-persona-3-4-ps2/\">this one</a> to apply modded files to an ISO (for other platforms).</li>" +
                         $"<span style=\"font-size:8pt;\"><b>Note:</b> Rename the downloaded .pnach file to match your game's CRC. By default, for this game it's {selectedGame.CRC}.</span>" +
                         $"<br><img class=\"img-responsive centered\"src=\"https://i.imgur.com/5b2yURr.png\">";
             if (selectedPlatform.ShortName == "PS3")
             {
                 if (selectedTarget != "" && selectedTarget != "console")
-                    gameSetupInstructions += "<li>Read <a target='_blank' href=\"/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/\">this guide to install the YML file on RPCS3</a>.";
+                    gameSetupInstructions += "<li>Read <a target='_blank' href=\"/blog/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/\">this guide to install the YML file on RPCS3</a>.";
                 else
-                    gameSetupInstructions += "<li>Follow <a target='_blank' href=\"/guides/2019/06/12/persona-5-ps3-eboot-patching/\">this guide to learn how to install mods with PS3 Custom Firmware.</a></li>";
+                    gameSetupInstructions += "<li>Follow <a target='_blank' href=\"/blog/2019/06/12/persona-5-ps3-eboot-patching/\">this guide to learn how to install mods with PS3 Custom Firmware.</a></li>";
                 gameSetupInstructions += "<br><span style=\"font-size:8pt;\"><b>Note:</b> It's okay if this Title ID doesn't match yours, as long as your region is EUR or USA.</span>";
             }
             if (selectedPlatform.ShortName == "NX")
@@ -77,7 +77,7 @@ namespace ShrineFoxCom.Components.Pages.WebApps
 
             if (selectedGame.ShortName == "P5EX")
             {
-                gameSetupInstructions += "<hr><li><b>IMPORTANT:</b> Follow <a target='_blank' href=\"/guides/2022/01/26/setting-up-persona-5-ex/\">this guide</a> to set up the P5 EX mod by DeathChaos25 on RPCS3." +
+                gameSetupInstructions += "<hr><li><b>IMPORTANT:</b> Follow <a target='_blank' href=\"/blog/2022/01/26/setting-up-persona-5-ex/\">this guide</a> to set up the P5 EX mod by DeathChaos25 on RPCS3." +
                         $"<br><span style=\"font-size:8pt;\">The following patches aren't included because they are reimplemented as part of the P5EX mod: {string.Join(",", Games.disabledEXPatches)}</span></li>";
                 if (selectedTarget != "console")
                 {
@@ -98,7 +98,7 @@ namespace ShrineFoxCom.Components.Pages.WebApps
                     gameSetupInstructions += "</ul><br><br><b>TLDR Install Instructions:</b><ul>" +
                             "<li>Connect your console to the same network as your PC. Use homebrew like <a target='_blank' href=\"http://www.enstoneworld.com/articles\">CCAPI</a> or <a href=\"https://github.com/aldostools/webMAN-MOD/releases\">WebMAN MOD</a> to enable FTP (File Transfer Protocol).</li>" +
                             "<li>Using a program like <a target='_blank' href=\"https://filezilla-project.org/download.php?platform=win64\">FileZilla</a>, connect to your PS3's IP and navigate to the game's Install Folder (something like dev_hdd0\\game\\NPEB02436\\USDIR).</li>" +
-                            "<li>Transfer your <b>eboot.bin</b> to PC and <a target='_blank' href=\"/guides/2019/06/12/persona-5-ps3-eboot-patching/\">patch it with the <b>patch.yml</b></a> generated by this page, then transfer it back (overwrite).</li>" +
+                            "<li>Transfer your <b>eboot.bin</b> to PC and <a target='_blank' href=\"/blog/2019/06/12/persona-5-ps3-eboot-patching/\">patch it with the <b>patch.yml</b></a> generated by this page, then transfer it back (overwrite).</li>" +
                             "<li>Download <a target='_blank' href=\"https://mega.nz/file/F5cGhDjC#DpMaU3iCfXeAF0NqbEU9p6aPkg1rTFYzCpZpE1rCjhc\">BGM cpk</a></li>" +
                             "<li>Download <a target='_blank' href=\"https://mega.nz/file/1p8wRCpa#-Ivf-55b2hU_3Y5ZTymi75C7tACExIskjxqZPIBxlE8\">P5R Bustups cpk</a></li>" +
                             "<li>Move the downloaded CPK files to the USRDIR folder in game's install folder</li>" +

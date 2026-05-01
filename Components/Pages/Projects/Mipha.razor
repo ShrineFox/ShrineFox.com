@@ -71,6 +71,7 @@
 <div class="miphacontainer"><div class="miphadownarrow"></div></div>
 
 <!--Screenshots-->
+<h1><div class="hylian" style="color: #fff;">SCREENSHOTS</div></h1>
 <Carousel Images=screenshotUrls/>
 
 <Border Images="borderUrls">
@@ -107,23 +108,31 @@
 
 <Border Images="borderUrls">
 	<Columns>
-		<Column Centered=true WidthMax=6 WidthLarge=6 WidthMid=12>
-			<img src="./images/projects/Mipha/LoMeephers.webp" style="max-width: 95%;" />
-		</Column>
 		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
-			<b>Support Nintendo by playing Zelda: Breath of the Wild on <a href="https://www.nintendo.com/us/store/products/the-legend-of-zelda-breath-of-the-wild-switch//">Nintendo Switch</a>.</b>
-			<br>
-			<h1><div class="hylian">DOWNLOAD</div></h1>
-			<h3><u><b>Latest Version (v1.1b)</b></u></h3>
-			<a href="https://drive.google.com/file/d/1J3wmkcmkZo0gl7jou6ygWvIreaEr_BGF/view?usp=sharing"><i class="fas fa-file" aria-hidden="true"></i> BCML .bnp (Wii U)</a>
-			<br><b>Last Updated 2/15/2025</b>
-			<br>
-			<br>
-			<br>At this time there is no Switch port (aside from the <a href="https://gamebanana.com/mods/246646">old 2018 version</a> of the mod).
-			<br />
-			<br />
-			<br />
-			<Toggle class="hylian" title="CLICK TO VIEW 1.1b CHANGELOG">
+			<img src="./images/projects/Mipha/LoMeephers.webp" class="img-responsive" />
+			<br /><br /><br />
+			<Toggle class="hylian" title="CLICK TO VIEW CHANGELOG">
+				<u>Version 1.3</u> (4/29/2026)
+				<ul>
+					<li>Higher resolution textures for the Light Scale Trident.</li>
+					<li>Nearly all mannequins replaced with custom versions.</li>
+					<li>This also fixes a texture error with armors that share mannequin sets.</li>
+					<li>Minor fix with Fierce Deity set</li>
+					<li>Minor fix with Radiant Set</li>
+					<li>Minor fix with Stealth Set</li>
+					<li>Icons for Blight (Dark) set. Thank you Fazlox!</li>
+					<li>Fixes UKMM install issue for <a href="https://github.com/NiceneNerd/UKMM/releases">1.7 UKMM</a>, please note this does not fix all known issues.</li>
+				</ul>
+				<br /><u>beta 1.2</u> (4/20/2025)
+				<ul>
+					<li>New Armors: Fierce Deity and Vah Rudania Helm</li>
+					<li>Updated dye textures for Warm Doublet</li>
+					<li>Updated icons for Fierce Deity, Warm Doublet and Champion's Sash.</li>
+					<li>Minor material updates.</li>
+					<li>Fixed Titlebg, Mipha can now properly parry again.</li>
+					<li>Removed voice clip from Mipha's Grace activation</li>
+				</ul>
+				<br><u>Beta 1.1</u> (2/15/2025)
 				<ul>
 					<li>Minor Typo Fixes</li>
 					<li>Removed duplicate Link.sbfres in Model folder</li>
@@ -133,7 +142,17 @@
 					<li>Updated armor InstSizes, should help prevent crashing. Thanks to Ginger for showing me the light.</li>
 				</ul>
 			</Toggle>
-
+		</Column>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<b>Support Nintendo by playing Zelda: Breath of the Wild on <a href="https://www.nintendo.com/us/store/products/the-legend-of-zelda-breath-of-the-wild-switch//">Nintendo Switch</a>.</b>
+			<br>
+			<h1><div class="hylian">DOWNLOAD</div></h1>
+			<h3><u><b>Latest Version (v1.3)</b></u></h3>
+			<a href="https://drive.google.com/file/d/1HfXRrSwuDwSv9oLAVLwLRDpXwpwUUzUt/view?usp=sharing"><i class="fas fa-file" aria-hidden="true"></i> BCML .bnp (Wii U)</a>
+			<br><b>Last Updated 4/29/2026</b>
+			<br>
+			<br>
+			<br>At this time there is no Switch port (aside from the <a href="https://gamebanana.com/mods/246646">old 2018 version</a> of the mod).
 		</Column>
 	</Columns>
 </Border>
@@ -142,31 +161,53 @@
 
 <Border Images="borderUrls">
 	<center>
-		<h1><div class="hylian">BCML INSTALL INSTRUCTIONS</div></h1>
-		See the <a href="https://zeldamods.org/wiki/Help:Using_mods">Zelda Modding Wiki</a> for more info.
+		<h1><div class="hylian">INSTALL INSTRUCTIONS</div></h1>
 	</center>
 	<Columns>
-		<Column Centered=true WidthMax=6 WidthLarge=6 WidthMid=12>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<br />As of <b>4/29/26</b>, this mod now supports the more recent <a href="https://github.com/NiceneNerd/UKMM/releases">UKMM mod manager</a>!
+			<Line Break="3"></Line>
+			<h1>Using UKMM</h1>
 			<ul>
-				<li>
-					Download and install <a href="https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe">Python 3.8 (64-bit)</a>.
-					<ul>
-						<li>When installing, make sure to check the "Add to PATH" checkbox!</li>
-					</ul>
-				</li>
-				<li>Open the command prompt and enter: python -m pip install bcml</li>
-				<li>Once it is installed, enter: python -m bcml</li>
-				<li>Set up paths to BotW's base/update/DLC files in BCML's settings</li>
-				<li>Add the downloaded .bnp file to the mod loadout in BCML to install the mod</li>
-				<li>Launch <a href="https://cemu.info/">CEMU</a> and enable BCML under Options > Graphic Packs!</li>
+				<li>Download and extract <a href="https://github.com/NiceneNerd/UKMM/releases/">UKMM.exe</a>.</li>
+				<li>Change the following settings:</li>
+				<li>Choose paths to BotW's BaseGame/Update/DLC files</li>
+				<li>Deploy Method: Copy</li>
+				<li>Deploy Layout: Without Named Folder</li>
+				<li>Deploy Rules.txt: True</li>
+				<li>Drag the downloaded Mipha's Grace .bnp onto the mod loadout and click "Deploy"</li>
+				<li>Copy the files from the output folder to a folder called "BreathOfTheWild_UKMM" in Cemu's graphicsPack folder.</li>
+				<li>Launch <a href="https://cemu.info/">CEMU</a> and enable UKMM under Options > Graphic Packs!</li>
 				<li>Run the game and enjoy.</li>
 			</ul>
+			<br /><br />
+			<br />For more info, see <a href="https://nicenenerd.github.io/UKMM/">UKMM Install Guide</a>, 
+			or <a href="https://zeldamods.org/wiki/Help:Using_mods">Zelda Modding Wiki</a>.
 		</Column>
 		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
 			<!-- Tutorial -->
 			<div class="video-responsive">
 				<iframe src="https://www.youtube.com/embed/mPMu29ozrvo" width="350" height="200" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no"></iframe>
 			</div>
+			<br>
+			Note: This video only showcases how to set up the mod for BCML. You can still follow it, but it doesn't apply to using UKMM.
+			<br><br /><br />
+			<Toggle Title="Click Here for Old BCML Instructions">
+				<ul>
+					<li>
+						Download and install <a href="https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe">Python 3.8 (64-bit)</a>.
+						<ul>
+							<li>When installing, make sure to check the "Add to PATH" checkbox!</li>
+						</ul>
+					</li>
+					<li>Open the command prompt and enter: python -m pip install bcml</li>
+					<li>Once it is installed, enter: python -m bcml</li>
+					<li>Set up paths to BotW's base/update/DLC files in BCML's settings</li>
+					<li>Add the downloaded .bnp file to the mod loadout in BCML to install the mod</li>
+					<li>Launch <a href="https://cemu.info/">CEMU</a> and enable BCML under Options > Graphic Packs!</li>
+					<li>Run the game and enjoy.</li>
+				</ul>
+			</Toggle>
 		</Column>
 	</Columns>
 </Border>
@@ -178,7 +219,7 @@
 		<div class="hylian"><br><h1>KNOWN ISSUES</h1></div>
 		<ul>
 			<li>There are reports of crashing when "Extended Memory" is enabled on CEMU, use at own risk.</li>
-			<li>v1.1 has not been extensively tested on UKMM, there are reports of crashing on the King Rhoam Cutscene and Moving Vah Ruta cutscenes using UKMM.</li>
+			<li>v1.3 has not been extensively tested on UKMM, there are reports of crashing on the King Rhoam Cutscene and Moving Vah Ruta cutscenes using UKMM.</li>
 			<li>If you experience crashing while opening the inventory in the shrine of resurrection in UKMM, finish the opening plateau cutscene first before opening the inventory for the first time</li>
 		</ul>
 	</div>

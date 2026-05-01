@@ -79,6 +79,54 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9519592525056753"
                 crossorigin="anonymous"></script>
     </div>
+    <!--Kofi-->
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js' class="kofi-button"></script>
+    <div id="kofi-widget">
+        <script>
+            kofiWidgetOverlay.draw('shrinefox', {
+              'type': 'floating-chat',
+              'floating-chat.donateButton.text': 'Leave a Tip',
+              'floating-chat.donateButton.background-color': 'rgba(var(--accent),1)',
+              'floating-chat.donateButton.text-color': '#fff'
+            });
+
+            let prevScrollPos = window.scrollY;
+
+            setTimeout(() => {
+                const kofiButton = document.querySelector('[id^="kofi-widget-overlay"]');
+
+                if (kofiButton) {
+                    kofiButton.style.transition = 'all 0.3s ease-in-out';
+
+                    window.addEventListener('scroll', () => {
+                        const currentScrollPos = window.scrollY;
+
+                        if (prevScrollPos > currentScrollPos) {
+                            kofiButton.style.opacity = '1';
+                            kofiButton.style.transform = 'translateY(0)';
+                            kofiButton.style.pointerEvents = 'auto';
+                        } else {
+                            kofiButton.style.opacity = '0';
+                            kofiButton.style.transform = 'translateY(100px)';
+                            kofiButton.style.pointerEvents = 'none';
+                        }
+
+                        prevScrollPos = currentScrollPos;
+                    });
+                }
+            }, 1000);
+        </script>
+        <style>
+            [id^="kofi-widget-overlay"] {
+                position: fixed;
+                bottom: 0;
+                left: 0.5em;
+                z-index: 999;
+            }
+        </style>
+    </div>
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    
     <!--End ShrineFox Footer-->
 </footer>
 
