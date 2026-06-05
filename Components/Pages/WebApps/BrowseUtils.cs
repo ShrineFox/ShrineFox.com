@@ -610,6 +610,56 @@ new Post() { Id = "aemulus", Type = "tool", Games = ["p1","p3fes","p3p","p4g","p
 new Post() { Id = "reloaded-ii", Type = "tool", Games = ["p5r-pc","p4g-pc","p3p-pc","p3r-pc"], Authors = ["Sewer56"], Tags= ["MOD MANAGER"], PostIndex = 0,
                     Title = "Reloaded II Mod Loader", Date = DateTime.ParseExact("12/20/25", dateTimeFormats, CultureInfo.InvariantCulture),
                     Description = "Mod manager that's used for running mods on the PC ports of Persona games.", EmbedURL = "", URL = "https://github.com/Reloaded-Project/Reloaded-II/releases/", SourceURL = "https://github.com/Reloaded-Project/Reloaded-II", UpdateText = "1.29.6"
+                },
+new Post() { Id = "p5r-1", Type = "guide", Games = ["p5r-pc","mf","p3p-pc","p3r-pc"], Authors = ["ShrineFox"], Tags= ["MOD MANAGER"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #1 – Installing Mods", Date = DateTime.ParseExact("8/15/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to use Reloaded-II to install and run mods for Persona 5 Royal on PC. Once you’ve mastered this, you can even start making your own mods!", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/08/P5rModding10-1536x864.png", 
+                    URL = "https://shrinefox.com/blog/2025/08/17/p5r-modding-guide-2025-1-installing-mods/", SourceURL = "https://www.youtube.com/watch?v=awPOQCCQzWI&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=1"
+                },
+new Post() { Id = "p5r-2", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["CPK,MOD MANAGER"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #2 – Creating New Mods", Date = DateTime.ParseExact("8/16/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "See how to extract data from P5R and use it to create your own mods. Learn how to mimic the CPK file structure by experimenting with model swaps.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/08/P5rModdingThumb_Part2-1536x864.png",
+                    URL = "https://shrinefox.com/blog/2025/08/17/p5r-modding-guide-2025-2-creating-new-mods/", SourceURL = "https://www.youtube.com/watch?v=W_-X46WEYho&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=2"
+                },
+new Post() { Id = "p5r-3", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["SPD"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #3 – Editing Sprites", Date = DateTime.ParseExact("8/17/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "See how to edit SPD files using the Amicitia program, as well as how to emulate individual sprites for the best compatibility with other mods.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/06/P5rModdingThumb_Part3_2-1536x864.png",
+                    URL = "https://shrinefox.com/blog/2025/08/17/p5r-modding-guide-2025-3-editing-sprites/", SourceURL = "https://www.youtube.com/watch?v=xWero11paDE&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=3"
+                },
+new Post() { Id = "p5r-4", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["PAC"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #4 – PAC Archives", Date = DateTime.ParseExact("8/23/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to replace files inside PAC archives using Amicitia. I’ll even go over how to emulate individual files in PAC, as well as how to use the SPD emulator in tandem.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/08/P5rModdingThumb_Part4-1536x864.png",
+                    URL = "https://shrinefox.com/blog/2025/08/23/p5r-modding-guide-2025-4-pac-archives/", SourceURL = "https://www.youtube.com/watch?v=iAeAsI0urfc&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=4"
+                },
+new Post() { Id = "p5r-5", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["ADX,BGM"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #5 – Music & Voices (ADX)", Date = DateTime.ParseExact("9/26/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to convert sounds to ADX, repack ACB/AWB archives, create loops using Audacity, and use tools like AWB Emulator and Ryo to improve your mod’s efficiency.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/09/p3r-5-1536x864.jpg",
+                    URL = "https://shrinefox.com/blog/2025/09/26/p5r-modding-guide-2025-5-music-voices-adx/", SourceURL = "https://www.youtube.com/watch?v=bKw4JPogvJk&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=5"
+                },
+new Post() { Id = "p5r-6", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["BUSTUP,CUTIN"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #6 – Bustups & Cutins", Date = DateTime.ParseExact("10/3/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Explaining how to create your own custom Bustups and Cutins, two UI elements P5R uses to give personality and flair to character dialogue.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/10/p3r-6-1536x864.png",
+                    URL = "https://shrinefox.com/blog/2025/10/03/p5r-modding-guide-2025-6-bustups-cutins/", SourceURL = "https://www.youtube.com/watch?v=75oL5_eQtzY&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=6"
+                },
+new Post() { Id = "p5r-7", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["USM,MOVIE"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #7 – Anime Cutscenes (USM)", Date = DateTime.ParseExact("10/16/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to make your own replacement video files for the “anime MV” cutscenes in P5R! You’ll just need a few tools for converting to USM format.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/10/p5r-7-1536x864.jpg",
+                    URL = "https://shrinefox.com/blog/2025/10/16/p5r-modding-guide-2025-7-anime-cutscenes-usm/", SourceURL = "https://www.youtube.com/watch?v=_t5BM3lhtjw&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=7"
+                },
+new Post() { Id = "p5r-8", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["GMD,GAP,MODEL,ANIMATION,BLENDER"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2025) #8 – Models & Animations (GMD/GAP)", Date = DateTime.ParseExact("10/25/25", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Everything you need to know in order to import custom models into Persona 5 Royal. Including how to tweak materials, rigging, and animations.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2025/10/p5r-8.jpg",
+                    URL = "https://shrinefox.com/blog/2025/10/25/p5r-modding-guide-2025-8-models-animations-gmd-gap/", SourceURL = "https://www.youtube.com/watch?v=g87EOaaSpY4&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=8"
+                },
+new Post() { Id = "p5r-9", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["GMD,GAP,MODEL,MOD MANAGER,ADX,BGM,BMD"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2026) #9 – BGME & Costume Framework", Date = DateTime.ParseExact("1/4/26", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to add and replace custom outfits easily using Costume Framework for P5R. Also learn how to add randomized, expanded, costume-dependent BGM using BGME Framework.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2026/01/P5r-9.jpg",
+                    URL = "https://shrinefox.com/blog/2026/01/04/p5r-modding-guide-2026-9-bgme-costume-framework/", SourceURL = "https://www.youtube.com/watch?v=vXQtfvUUnqU&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=9"
+                },
+new Post() { Id = "p5r-10", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["TBL,BF"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2026) #10 – Editing Tables", Date = DateTime.ParseExact("1/20/26", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to edit P5R data tables using a variety of tools. After explaining the purpose of each table, we use this knowledge to create a custom encounter with a custom enemy that uses a custom skill. Also: introduction to hex editing, while using 010 Templates to simplify the process.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2026/01/p5r-10-3.jpg",
+                    URL = "https://shrinefox.com/blog/2026/01/20/p5r-modding-guide-2025-10-editing-tables/", SourceURL = "https://www.youtube.com/watch?v=3uB57WVdCeU&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=10"
                 }
             };
 

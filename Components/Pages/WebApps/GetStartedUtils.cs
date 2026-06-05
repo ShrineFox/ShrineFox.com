@@ -27,7 +27,11 @@ namespace ShrineFoxCom.Components.Pages.WebApps
                     case "P3R":
                     case "P5R":
                     case "MF":
-                        gameSetupInstructions += "<li>Follow <a target='_blank' href=\"https://gamebanana.com/tuts/15399\">this guide</a> to set up mod support.<br><b>Even though instructions are for P5R</b>, this guide also applies to Metaphor: ReFantazio and Persona 3 Reload.</li>";
+                        gameSetupInstructions += "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/awPOQCCQzWI?si=SRofWkuXZ887NsdF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>" +
+                            "<li>You can watch <a href=\"https://www.youtube.com/watch?v=awPOQCCQzWI&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=1\">my tutorial video</a> on setting up mods for P5R (PC)." +
+                            "<br>You can also watch the <a href=\"https://www.youtube.com/watch?v=W_-X46WEYho&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=2\">rest of the playlist</a> to learn how to create mods!" +
+                            "<br><br>There is also a <a href=\"https://shrinefox.com/blog/2025/08/17/p5r-modding-guide-2025-1-installing-mods/\">text-based version of the guide</a> if you prefer to read instructions." +
+                            "<br><br>Note: Even though the setup guide is for P5R, it still works for P3R. Just choose P3R.exe in Reloaded-II instead!</li>";
                         break;
                 }
             }
