@@ -1,36 +1,29 @@
 @using System.Xml
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
 @using ShrineFoxCom.Components.Layout
 @using SimpleFeedReader
 @inject IJSRuntime JS
 
-<div class="card">
-    <div class="card-footer">
-        <ul>
-            @if (items == null)
-            {
-                <p>Loading…</p>
-            }
-            else
-            {
-                @foreach (var i in items.Take(5))
-                {
-                    <li style="list-style:none;">
-                        <h3>
-                            <a href="@i.Uri" target="_blank">@i.Title</a>
-                        </h3>
-                        <b>@i.PublishDate?.ToString("MMM d")</b>
-                        <div class="itemContent">
-                            @i.Summary
-                        </div>
-                    </li>
-                }
-            }
-        </ul>
-    </div>
-    <div class="card-header">
-        <div class="card-title h5"><a href="/blog/"><i class="fa-regular fa-newspaper"></i> See more blogposts</a></div>
-    </div>
-</div>
+@if (items == null)
+{
+    <p>Loading…</p>
+}
+else
+{
+    @foreach (var i in items.Take(4))
+    {
+        var image = new MarkupString(i.Images.FirstOrDefault()?.ToString() ?? string.Empty);
+        <Card Title="@(new MarkupString($"<a href=\"{@i.Uri}\" target=\"_blank\"><i class=\"fa fa-link\"></i></a>{@i.Title}"))"
+                Subtitle="@(new MarkupString($"<i class=\"fas fa-history\" aria-hidden=\"true\"></i> {@i.PublishDate?.ToString("MMM d")}</span>"))"
+              Image=image
+            Footer=@(new MarkupString($"<a class=\"btn btn-secondary float-right\" href=\"{@i.Uri}\"><i class=\"fa fa-code\"></i> Read Post</a>"))>
+            @i.Summary
+        </Card>
+    }
+}
+
+<h5><a href="/blog/"><i class="fa-regular fa-newspaper"></i> See more blogposts</a></h5>
+
 
 @code
 {
