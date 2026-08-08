@@ -9,23 +9,18 @@
     public string Class { get; set; } = "";
 
     [Parameter]
+    public string ID { get; set; } = "accordion-1";
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }
 
-<div class="toggle">
-    <div class="toggle-title @Class" onclick="toggleSection(this)">@Title</div>
-    <div class="toggle-inner">
+<div class="accordion">
+    <input type="checkbox" id="@ID" name="accordion-checkbox" hidden>
+    <label class="accordion-header" for="@ID">
+        <div class="@Class" onclick="toggleSection(this)">@Title <i class="fa-solid fa-chevron-down"></i></div>
+    </label>
+    <div class="accordion-body">
         @ChildContent
     </div>
 </div>
-
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JS.InvokeVoidAsync("initToggles");
-        }
-    }
-}
