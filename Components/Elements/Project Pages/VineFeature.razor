@@ -1,0 +1,40 @@
+@inject IJSRuntime JS
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+
+@code
+{
+    [Parameter]
+    public string Title { get; set; } = "";
+
+    [Parameter]
+    public string Subtitle { get; set; } = "";
+
+    [Parameter]
+    public string ToggleTitle { get; set; } = "";
+
+    [Parameter]
+    public string ID { get; set; } = "accordion-1";
+
+    [Parameter]
+    public string ImgUrl { get; set; } = "";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
+
+<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+    <Centered>
+        <img class="img-responsive" src="@ImgUrl">
+    </Centered>
+</Column>
+<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+    <h3><div class="typesauce">@Title</div></h3>
+    @(new MarkupString(@Subtitle))
+    <Toggle Title="@ToggleTitle" Class="typesauce" ID="@ID">
+	    <pre style="background: #0000008f;">
+			    <code style="background: transparent;color: #fff;">
+    @ChildContent
+			    </code>
+		    </pre>
+    </Toggle>
+</Column>

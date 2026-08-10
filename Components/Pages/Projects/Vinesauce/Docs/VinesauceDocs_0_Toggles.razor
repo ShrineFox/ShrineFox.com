@@ -1,0 +1,565 @@
+﻿@page "/vinesauce/docs/toggles"
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Project_Pages
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.HomePageComponents
+@using ShrineFoxCom.Components.Layout
+@using ShrineFoxCom.Components.Elements.Home_Page
+
+@layout EmptyLayout
+
+<HeadContent>
+	<link rel="stylesheet" href="/css/spectre.css" />
+	<link rel="stylesheet" href="/css/projects/Vinesauce/vine.css">
+	<link rel="stylesheet" href="/css/theme/progress.css">
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=News+Cycle|Open+Sans">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+	<link rel="icon" type="image/x-icon" href="/images/projects/Vinesauce/favicon.ico" />
+
+	<title>P5V Docs - Reloaded Toggles</title>
+</HeadContent>
+
+<div class="wrapper"> </div>
+
+<Logo/>
+
+
+<Border Class="vineborder">
+	<center>
+		<a href="https://shrinefox.com/vinesauce"><img style="height:150px;" class="img-responsive" src="./images/projects/Vinesauce/vine_logo.webp" alt="Logo by lynlyn_cpk"></a>
+	</center>
+
+	<Columns>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<h1><b><div class="typesauce">Reloaded-II Mod Config DLL Toggles</div></b></h1>
+			This mod comes with a VinesauceModSettings.dll file, which allows the user to configure toglleable options in
+			Reloaded-II before launching the game. This DLL is compiled from this open source repository:
+			<a href="https://github.com/ShrineFox/Reloaded-2-Persona-Config">
+				https://github.com/ShrineFox/Reloaded-2-Persona-Config
+			</a>
+			<br>Below are the toggles and how they work.
+		</Column>
+		<Column WidthMax=6 WidthLarge=6 WidthMid=12>
+			<Centered>
+				<img class="img-responsive flex-centered" src="/images/projects/Vinesauce/toggles/p5v-0-0-settings.webp" style="max-height:312px;" alt="Boxart by Protokyuu" />
+			</Centered>
+		</Column>
+	</Columns>
+			
+</Border>
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">0. Unconfigurable</div></h1>
+	<center>
+		The following paths are always loaded regardless of the following toggles.
+	</center>
+	<Line Break="3"/>
+	<Columns>
+	<VineFeature Title="CPK File Override Paths" ID="v-0-1" ToggleTitle="Implementation"
+			 ImgUrl="/images/projects/Vinesauce/toggles/p5v-0-1-mainfiles.webp"
+				 Subtitle="These are the paths to various edited files that the game will always 
+		load when the mod is enabled, <br>regardless of any of the other toggled options listed here.">
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_CPK");
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_Models");
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_Personas");
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_Fields");
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_Tables");
+_BGME.AddFolder($"{modDir}\\Mod Files\\Main\\BGME");
+_BfEmulator.AddDirectory($"{modDir}\\Mod Files\\Main\\BF");
+_BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Main\\BMD");
+_PakEmulator.AddDirectory($"{modDir}\\Mod Files\\Main\\PAK");
+_SpdEmulator.AddDirectory($"{modDir}\\Mod Files\\Main\\SPD");
+	</VineFeature>
+
+		<VineFeature Title="Green Pause Menu Color" ID="v-0-2" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-0-2-pausegreen.webp"
+				 Subtitle="The pause menu color being changed from red to green is also hardcoded into the DLL mod.">
+// ColorStuff by zarroboogs
+IStartupScanner startupScanner;
+_modLoader.GetController&#x3C;IStartupScanner>
+().TryGetTarget(out startupScanner);
+SigScanHelper scanHelper = new SigScanHelper(_logger, startupScanner);
+_currentProcess = Process.GetCurrentProcess();
+IntPtr baseAddress = _currentProcess.MainModule.BaseAddress;
+PatchContext patchContext = new PatchContext
+{
+	BaseAddress = baseAddress,
+	Hooks = _hooks,
+	Config = _configuration,
+	ScanHelper = scanHelper
+};
+CmpBgColor.Activate(patchContext);
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">1. New Features</div></h1>
+	<center>
+		The following features are considered the "main" features of the mod,
+		<br>and should only be toggled off if you want to experience the original P5R
+		<br>story campaign instead-- but with some of the Vinesauce themed aesthetics.
+	</center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Replace Story Events" ID="v-1-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-1-1-newstoryevents.webp"
+				 Subtitle="Skip the game's original story events in favor of new material. (Default: true)
+<br>When this option is disabled, unedited story cutscenes will play
+		normally, and story progress won't be tied to Mementos. This allows
+		you to experience the original P5R campaign with only cosmetic
+		(models/voices/bgm) alterations.">
+if (_configuration.NewStory)
+{
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\CPK");
+    if (_configuration.UseRepackedTextures)
+    {
+        criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\Textures\\RepackedBINs");
+    }
+    if (_configuration.UseCustomScripts)
+    {
+        criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\CPK");
+        _BfEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\BF");
+        _BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\BMD");
+    }
+
+    // Config Option: Emulate Unpacked Palace Textures
+    if (_configuration.EmulateTextures)
+        _PakEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Textures\\LooseBINs");
+
+    // Random Corruption EPL Jumpscares CPK Dir
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\Effects");
+}
+	</VineFeature>
+
+		<VineFeature Title="Reskin Bosses" ID="v-1-2" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-1-2-boss.webp"
+				 Subtitle="Use Vinesauce-themed boss fights. Disable for vanilla. (Default: true)
+		<br>When this option is disabled, Palace final bosses will no longer be replaced by Vinesauce-equivalents. 
+Their appearance, voicelines, and battle logic will revert to that of the original P5R campaign.">
+if (_configuration.NewBosses)
+{
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\Bosses\\CPK");
+    _BfEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\Bosses\\BF");
+    _BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\Bosses\\BMD");
+}
+	</VineFeature>
+
+		<VineFeature Title="Reskin Dungeons" ID="v-1-3" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-1-3-palace.webp"
+				 Subtitle="Use the Vinesauce-themed Palaces. Disable for vanilla. (Default: true)
+		<br>When this option is disabled, texture and model edits tied to the map will not appear in dungeons. 
+Palaces and Mementos will have the same appearance they do in the original P5R campaign.">
+if (_configuration.NewDungeons)
+{
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\Dungeons\\CPK");
+    _BfEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\Dungeons\\BF");
+    _BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\Dungeons\\BMD");
+}
+	</VineFeature>
+
+		<VineFeature Title="Use Custom BGM" ID="v-1-4" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-1-4-bgm.webp"
+				 Subtitle="Use randomized music replacements. Disable to use vanilla P5R sound for faster startup. (Default: true)
+		<br>When this option is disabled, you will hear the unaltered P5R soundtrack without the Red Vox BGM replacements.">
+if (_configuration.UseCustomBGM)
+    foreach (var dir in Directory.GetDirectories($"{modDir}\\Mod Files\\Main\\ACB\\BGM"))
+    {
+        _RyoApi.AddAudioFolder(dir);
+    }
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	<h1><div class="typesauce">2. Accessibility</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Disable Randomized Screen Effects" ID="v-2-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-2-1-jumpscare.webp"
+				 Subtitle="Use this to prevent jumpscares from happening. (Default: false)
+		<br>*Simulated corruptions are only loaded if <b>Replace Story Events</b>is enabled.
+<br>This option is more of an accessibility feature, and an ease of testing feature. 
+Normally, with the New Story Mode enabled, random corrpution effects will happen in-game. 
+As you progress in the game, the frequency and variety of these effects increases, to give the 
+impression that the game is becoming more and more corrupted. However, some of these effects may be 
+an epilepsy or accessibility concern, so this option disables them.">
+/*
+ * EPL STUFF - used to show randomized corruption effects
+ */
+
+// courtesy of Wisteria and NotAMitten's FNAF mod: https://gamebanana.com/mods/629637
+// Original source code here: https://github.com/NM-20/P5RPC.Fnaf2
+
+if (_configuration.DisableEPLEffects)
+{
+    _logger.PrintMessage("Randomized Screen Effects disabled by user config.", Color.Red);
+    return;
+}
+
+Process process = Process.GetCurrentProcess();
+using Scanner scanner = new Scanner(process);
+PatternScanResult addResult = scanner.FindPattern("48 89 5C 24 08 48 89 6C " +
+...
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+
+
+
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">3. Chat Messages</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Randomize Chat Messages" ID="v-3-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-3-1-chat.webp"
+				 Subtitle="Re-order navigator chat messages every time you launch the game. (Default: true)
+		<br>When this option is disabled, chat messages will not be shuffled next time you launch the game, 
+so the same messages will appear in the same situations as before. It's recommended to shuffle them for more variety.</li>">
+criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\Chat Navi\\CPK");
+_BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\Chat Navi\\BMD");
+if (_configuration.RandomizeChatMsgs || 
+    !Directory.Exists($"{modDir}\\Mod Files\\Toggleable\\Chat Navi\\BMD"))
+{
+    RewriteChatMessages($"{modDir}\\Mod Files\\Toggleable\\Chat Navi\\chat.txt");
+}
+	</VineFeature>
+
+	<VineFeature Title="Use Ping SFX" ID="v-3-2" ToggleTitle="Implementation"
+				 Subtitle="Hear a slightly perceptible messenger ping when chat navi messages appear. (Default: false)
+		<br>When this option is disabled, chat messages in the navi popup during battle and field exploration will be entirely silent.">
+private void UpdateChatPingSFX(string modDir, bool usePingSFX)
+{
+    string awbEmuDir01 = Path.Combine(modDir, "FEmulator\\AWB\\SPT01.AWB");
+    string awbEmuDir02 = Path.Combine(modDir, "FEmulator\\AWB\\SPT02.AWB");
+    string pingSfxDir = Path.Combine(modDir, "Mod Files\\Toggleable\\Chat Navi\\SFX\\Ping");
+    string silentSfxDir = Path.Combine(modDir, "Mod Files\\Toggleable\\Chat Navi\\SFX\\Silent");
+
+    // Add silent navi SFX to FEmu if it's missing
+    if (!Directory.Exists(awbEmuDir01) &#x26;&#x26; Directory.Exists(silentSfxDir))
+    {
+        CopyDir(silentSfxDir, Path.GetDirectoryName(awbEmuDir01));
+        _logger.WriteLine($"Created silent navi SFX.", System.Drawing.Color.Green);
+    }
+    if (!Directory.Exists(awbEmuDir02) &#x26;&#x26; Directory.Exists(silentSfxDir))
+    {
+        CopyDir(silentSfxDir, Path.GetDirectoryName(awbEmuDir02));
+        _logger.WriteLine($"Created silent navi SFX.", System.Drawing.Color.Green);
+    }
+
+    // Replace SFX based on user's mod settings
+    if (Directory.Exists(awbEmuDir01) &#x26;&#x26; Directory.Exists(awbEmuDir02)
+        &#x26;&#x26; Directory.Exists(pingSfxDir) &#x26;&#x26; Directory.Exists(silentSfxDir))
+    {
+        if (usePingSFX &#x26;&#x26; !Directory.GetFiles(awbEmuDir01, "*.adx", SearchOption.AllDirectories).Any(x =>
+ x.Contains("_ping")))
+        {
+            Directory.Delete(awbEmuDir01, true);
+            Directory.Delete(awbEmuDir02, true);
+            CopyDir(pingSfxDir, Path.GetDirectoryName(awbEmuDir01));
+            CopyDir(pingSfxDir, Path.GetDirectoryName(awbEmuDir02));
+            _logger.WriteLine($"Copied ping SFX to navi chat directory.", System.Drawing.Color.Green);
+        }
+		...
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">4. UI Artwork</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Use NeonWillowLeaf's Scoot All Out Attack" ID="v-4-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-4-1-scoot.webp"
+				 Subtitle="Enable this option to see NeonWillowLeaf's Scoot AoA in place of the default one by CheesyDraws. (Default: false)
+		<br>Two artists wanted to contribute to the same character, so to compromise and include both of their work, you can use this option 
+to choose between them. NeonWillowLeaf's Scoot design is more reminiscient of Morgana's stylization, 
+whereas CheesyDraws is more similar to Scoot's ACNH model (which is what his battle model is heavily based on).">
+if (_configuration.NeonWillowLeaf)
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\Alt Scoot AoA");
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">5. Debug - Config</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Overwrite P5RCBT Config" ID="v-5-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-5-1-config.webp"
+				 Subtitle="Disable this option if you want to use your own P5RCBT settings. (Default: true)
+		<br>When this option is disabled, this mod will not change values in the UserConfig.json 
+files of other mods such as P5RCBT. This is done for purposes such as setting the accent colors 
+of party members to match the Vinesauce mod, or setting the protagonist's name to Vinny Vinesauce 
+using the force protag name mod.">
+var cbtDir = _modLoader.GetDirectoryForModId("p5r.enhance.cbt");
+var nameDir = _modLoader.GetDirectoryForModId("p5rpc.patch.forcejokername");
+
+if (_configuration.OverwriteP5RCBTConfig)
+{
+    CopyP5RCBTConfig(modDir, cbtDir);
+    OverwriteCustomNameConfig(nameDir);
+}
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+
+
+
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">6. Debug - Textures</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Load Repacked Textures" ID="v-6-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-6-1-tex.webp"
+				 Subtitle="Use repacked files for texture edits. Disable to ensure only unpacked textures are loaded. (Default: true)
+		<br>*Repacked textures are only loaded if <b>Replace Story Events</b> is enabled.
+		<br>When this option is disabled, existing texture .BIN files will not be loaded, 
+allowing you to see WIP changes from unpacked texture folders even if a finalized .BIN already 
+is present. This may be useful for testing non-finalized field edits.">
+if (_configuration.NewStory)
+{
+    if (_configuration.UseRepackedTextures)
+    {
+        criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\Textures\\RepackedBINs");
+    }
+...
+	</VineFeature>
+
+		<VineFeature Title="Load Emulated Textures" ID="v-6-2" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-6-2-tex.webp"
+				 Subtitle="Use loose unpacked files for texture edits. Disable for quicker startup while testing. (Default: true)
+		<br>*Emulated textures are only loaded if <b>Replace Story Events</b> is enabled.
+		<br>When this option is disabled, unpacked texture BIN folders will not be loaded, 
+which saves a lot of time during testing and may prevent crashes where the game runs out of memory.">
+if (_configuration.NewStory)
+{
+    // Config Option: Emulate Unpacked Palace Textures
+    if (_configuration.EmulateTextures)
+        _PakEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Textures\\LooseBINs");
+...
+	</VineFeature>
+
+		<VineFeature Title="Use Custom UI" ID="v-6-3" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-6-3-ui.webp"
+				 Subtitle="Disable this option for faster startup when not testing UI. (Default: true)
+		<br>When this option is disabled, custom HUD elements such as loading icons, bustups, 
+all-out-attacks, and the in-dungeon/battle partypanel will not be loaded. This is to save time while 
+quickly testing other changes, since this involves many individual files being loaded and cached.">
+if (_configuration.UseCustomUI)
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Main\\_UI");
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+
+
+
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">7. Debug - Sound</div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Force Copy Custom BGM" ID="v-7-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-7-1-bgm.webp"
+				 Subtitle="Delete existing music replacements and re-generate from DefaultMusic.json at startup.. (Default: false)
+		<br>When this option is enabled, each time the game is started with the mod loaded, all BGM from the <code>
+		p5rpc.vinesauce\Music</code> folder will be copied to destinations specified by <code>p5rpc.vinesauce\DefaultMusic.json</code>.
+		<br>This option should only be used when you have changed DefaultMusic.json by 
+adding/removing/re-assigning BGM track destinations using P5VMusicTool. The purpose of 
+P5VMusicTool is to keep all duplicates of .adx files (used for different randomized sets of 
+music) identical, for easier updating and to keep the mod size down when compressed-- which will 
+be handy for release. This option may be removed before a proper release.
+		<br>When this option is disabled, this mod will not change values in the UserConfig.json 
+files of other mods such as P5RCBT. This is done for purposes such as setting the accent colors of 
+party members to match the Vinesauce mod, or setting the protagonist's name to Vinny Vinesauce using 
+the force protag name mod.">
+private void CreatePMEFiles()
+{
+    var modDir = _modLoader.GetDirectoryForModId(_modConfig.ModId);
+    string jsonPath = Path.GetFullPath(Path.Combine(modDir, ".//DefaultMusic.json"));
+
+    if (File.Exists(jsonPath))
+    {
+        _logger.WriteLine($"Creating PME Files for Battle BGM...", Color.Tan);
+
+        string json = File.ReadAllText(jsonPath);
+        Project currentProject = JsonConvert.DeserializeObject&#x3C;Project>
+(json);
+
+        List&#x3C;string>
+ costumeNames = currentProject.Destinations
+            .Where(x =>
+ x.CueID >
+ -1)
+            .Select(x =>
+ x.CostumeName)
+            .Distinct()
+            .ToList();
+
+        foreach (var costume in costumeNames)
+        {
+            string pmePath = $"{modDir}\\Costumes\\Joker\\{costume}\\music.pme";
+
+            if (File.Exists(pmePath) &#x26;&#x26; !_configuration.ForceCopyCustomBGM)
+                continue;
+
+            var normalBattleIDs = string.Join(",", currentProject.Destinations
+                .Where(x =>
+ x.CueID >
+ -1 &#x26;&#x26; x.CostumeName == costume &#x26;&#x26; x.NormalBattle)
+                .Select(x =>
+ x.CueID.ToString())
+                .ToList());
+...
+	</VineFeature>
+
+		<VineFeature Title="Use Custom Voices" ID="v-7-2" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-7-2-voices.webp"
+				 Subtitle="Use randomized voice replacements. Disable to use vanilla P5R sound for faster startup. (Default: true)
+		<br>When this option is disabled, you will hear the unaltered P5R voice acting for party members instead of the 
+Vinesauce-related replacement clips.">
+if (_configuration.UseCustomVoices)
+    foreach (var dir in Directory.GetDirectories($"{modDir}\\Mod Files\\Main\\ACB\\Voices"))
+    {
+        _RyoApi.AddAudioFolder(dir);
+    }
+	</VineFeature>
+
+		<VineFeature Title="Use Silenced Base AWBs" ID="v-7-3" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-7-3-silent.webp"
+				 Subtitle="Silence voice clips by default. Emulated ACB/AWB files override this. Disable for faster startup. (Default: true)
+		<br>When this option is disabled, enemies may regain their original unedited voice clips. This also applies to ambient sounds such as the mumbles you hear 
+from citizens around town.">
+if (_configuration.UseSilencedBaseAWBs)
+    criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\Silence");
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	
+	<h1><div class="typesauce">8. Debug - Scripts </div></h1>
+	<center></center>
+	<Line Break="3" />
+	<Columns>
+		<VineFeature Title="Use Custom Scripts" ID="v-8-1" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-8-1-scripts.webp"
+				 Subtitle="Disable this option for faster startup when not testing script edits. (Default: true)
+		<br>*Custom scripts are only loaded if <b>Replace Story Events</b> is enabled.
+		<br>When this option is disabled, scripts in the <code>p5rpc.vinesauce\Mod Files\Toggleable\New Story\Scripts\BF\CustomScripts</code>
+		folder will not be re-compiled each time you launch the game, and will instead not be used 
+at all. This saves time when testing other things. This option may be removed before release.">
+if (_configuration.NewStory)
+{
+    if (_configuration.UseCustomScripts)
+    {
+        criFsApi.AddProbingPath($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\CPK");
+        _BfEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\BF");
+        _BmdEmulator.AddDirectory($"{modDir}\\Mod Files\\Toggleable\\New Story\\Scripts\\BMD");
+    }
+...
+	</VineFeature>
+
+		<VineFeature Title="Use Test Script on Startup" ID="v-8-2" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-8-2-test.webp"
+				 Subtitle="Loads edits from 1A_Testing.flow on Title Screen. (Default: false)
+		<br>When this option is disabled, you can access the title screen like normal.
+		1A_Testing.flow is a script file found in <code>p5rpc.vinesauce\Mod Files\Toggleable\New Story\Scripts\BF_CustomScripts</code>.
+		<br>Developers can edit this file to their liking to instantly load into a boss fight, palace, field, or cutscene for quick and easy testing.">
+if (_configuration.LoadTestScriptOnTitle)
+    EditScript(modDir, true);
+else
+    EditScript(modDir, false);
+
+private void EditScript(string modDir, bool enable)
+{
+    string titleScreenScript = Path.Combine(modDir, "Mod Files\\Toggleable\\New Story\\Scripts\\BF\\_CustomScripts\\DEBUG_TitleMenu.flow");
+    if (File.Exists(titleScreenScript))
+    {
+        var lines = File.ReadAllLines(titleScreenScript);
+        for (int i = 0; i &#x3C; lines.Length; i++)
+        {
+            if (lines[i].Contains("!Test_OnTitleLoad"))
+            {
+                if (enable)
+                    lines[i] = "\tif (!Test_OnTitleLoad(true))";
+                else
+                    lines[i] = "\tif (!Test_OnTitleLoad(false))";
+            }
+        }
+        string newLines = string.Join('\n', lines);
+        File.WriteAllText(titleScreenScript, newLines);
+        _logger.WriteLine($"Edited DEBUG_TitleMenu.flow to {(enable ? "enable" : "disable")} Test_OnTitleLoad script.", System.Drawing.Color.Green);
+    }
+}
+	</VineFeature>
+
+		<VineFeature Title="Randomized Effect Probability" ID="v-8-3" ToggleTitle="Implementation"
+					 ImgUrl="/images/projects/Vinesauce/toggles/p5v-8-3-epl.webp"
+				 Subtitle="The higher the number, the less often jumpscares will happen. (Default: 100000)
+<br>*Simulated corruptions are only loaded if <b>Replace Story Events</b> is enabled.
+<br>This number counts the number of frames between each chance of a corruption effect being selected. 
+				 The likelihood of an individual corruption effect happening is controlled by the 
+				 <code>p5rpc.vinesauce\Mod Files\Toggleable\New Story\Effects\eplEffects.json</code> file. 
+				 The ability to adjust this value may be removed before release.
+<br>For instance, the Mark's Pizzeria effect has 10% of happening every 10,000 frames if your corruption level is 0 or higher.">
+{
+    "Name": "MarksPizzeria",
+    "eplID": 803,
+    "systemCueID": 9801,
+    "chance": 10,
+    "corruptLevel": 0
+},
+	</VineFeature>
+
+	</Columns>
+</Border>
+
+<Border Class="vineborder">
+	<h1><a href="https://shrinefox.com/vinesauce/docs"><div class="typesauce"><i class="fa-solid fa-circle-left"></i> BACK TO DOCS DIRECTORY</div></a></h1>
+</Border>
+
+<Border Class="vineborder" NoBottom=true>
+	<div class="innercontainer">
+		<center>
+			ShrineFox 2023-2026.
+			<br>Special Thanks to: <a href="https://twitter.com/tgenigma">TGE</a> (tool programming),
+			<a href="https://twitter.com/CheesyDraws">CheesyDraws</a>, <a href="https://twitter.com/NeonWillowLeaf">NeonWillowLeaf</a>
+			& <a href="https://protokyuu.newgrounds.com/">Protokyuu</a> (character & UI artwork),
+			<a href="https://twitter.com/kekulism">kekulism</a> (planning & bgm conversion),
+			<a href="https://twitter.com/lyncpk">lyncpk</a> (asset recolors & logo)
+			<br>We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with ATLUS, SEGA,
+			or any of its subsidiaries or its affiliates.<br>The official ATLUS website can be found at
+			<a href="https://atlus.com">https://atlus.com</a>. "Persona 5" is a registered trademarks of ATLUS.
+		</center>
+	</div>
+</Border>

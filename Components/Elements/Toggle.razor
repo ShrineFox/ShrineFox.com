@@ -17,8 +17,8 @@
 
 <div class="accordion">
     <input type="checkbox" id="@ID" name="accordion-checkbox" hidden>
-    <label class="accordion-header" for="@ID">
-        <div class="@Class" onclick="toggleSection(this)">@Title <i class="fa-solid fa-chevron-down"></i></div>
+    <label class="accordion-header" for="@ID" style="cursor: pointer;">
+        <div class="@Class">@Title <i class="fa-solid fa-chevron-down"></i></div>
     </label>
     <div class="accordion-body">
         @ChildContent
