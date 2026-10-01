@@ -1,0 +1,72 @@
+﻿@using System.Net
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@using ShrineFoxCom.Components.Pages.SiteInfo
+@using System.Text.RegularExpressions;
+
+@using (var client = new WebClient())
+{
+    var contents = client.DownloadString("https://twitch.tv/shrinefox");
+    if (contents.Contains("isLiveBroadcast"))
+    {
+        Match match = Regex.Match(contents, @"<meta\s+property=[""']og:description[""']\s+content=[""']([^""']*)[""']", RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            <Card>
+                <h1>
+                    🔴 ShrineFox is <a href="https://twitch.tv/ShrineFox">
+                    Live on <i class="fa-brands fa-twitch"></i> Twitch</a>
+                </h1>
+                <h3>
+                    @match.Groups[1].Value
+                </h3>
+            </Card>
+
+            <div class="responsive-embed">
+                <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=false&amp;muted=false"
+                        class="twitch-player"
+                        title="Twitch player"
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+                <iframe class="twitch-chat"
+                        src="https://www.twitch.tv/embed/shrinefox/chat?parent=shrinefox.com"
+                        title="Twitch Chat"
+                        loading="lazy">
+                </iframe>
+            </div>
+        }
+    }
+}
+
+<style>
+    .responsive-embed {
+        width: 100%;
+    }
+
+        .responsive-embed iframe {
+            width: 100%;
+            height: 500px;
+            border: 0;
+        }
+
+    .twitch-player
+    {
+        width: 70% !important;
+    }
+
+    .twitch-chat {
+        width: 29% !important;
+    }
+
+    @@media only screen and (max-width: 900px) {
+        .twitch-player {
+            width: 100% !important;
+        }
+
+        .twitch-chat {
+            width: 100% !important;
+        }
+    }
+</style>
