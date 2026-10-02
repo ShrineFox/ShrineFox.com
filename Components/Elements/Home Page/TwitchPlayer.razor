@@ -1,10 +1,38 @@
 ﻿@using System.Net
+@using System.Text.RegularExpressions
 @using ShrineFoxCom.Components.Elements.Spectre_Framework
 
-@if (true)
+
+@using (var client = new HttpClient())
 {
-    string streamPath = Path.Combine(Environment.CurrentDirectory, "stream.txt");
-    if (File.Exists(streamPath))
+    bool streaming = false;
+    string details = "";
+    string txtPath = Path.Combine(Environment.CurrentDirectory, "stream.txt");
+
+    if (File.Exists(txtPath))
+    {
+        streaming = true;
+        details = File.ReadAllText(txtPath);
+        if (details == "offline")
+            streaming = false;
+    }
+    else
+    {
+        var response = client.GetAsync("https://twitch.tv/shrinefox", HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
+        response.EnsureSuccessStatusCode();
+        string html = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+        if (html.Contains("Streaming"))
+        {
+            streaming = true;
+            Match match = Regex.Match(html, @"<meta\s+property=[""']og:description[""']\s+content=[""']([^""']*)[""']", RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                details = @match.Groups[1].Value;
+            }
+        }
+    }
+
+    if (streaming)
     {
         <Card>
             <h1>
@@ -12,7 +40,7 @@
                 Live on <i class="fa-brands fa-twitch"></i> Twitch
                 </a></h1>
             <h3>
-                @File.ReadAllText(streamPath)
+                @details
             </h3>
         </Card>
 
