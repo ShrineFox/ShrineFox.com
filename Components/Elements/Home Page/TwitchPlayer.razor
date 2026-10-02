@@ -1,41 +1,41 @@
 ﻿@using System.Net
 @using ShrineFoxCom.Components.Elements.Spectre_Framework
-@using ShrineFoxCom.Components.Pages.SiteInfo
-@using System.Text.RegularExpressions;
 
-@using (var client = new WebClient())
+@if (true)
 {
-    var response = client.DownloadString("https://freaktracker.luhsnaru.workers.dev/?user=shrinefox&size=lg");
-    if (response.Contains("is live"))
+    string streamPath = Path.Combine(Environment.CurrentDirectory, "stream.txt");
+    if (File.Exists(streamPath))
     {
-        //Match match = Regex.Match(html, @"<meta\s+property=[""']og:description[""']\s+content=[""']([^""']*)[""']", RegexOptions.IgnoreCase);
-        //if (match.Success)
-        {
-            <Card>
-                <h1>
-                    🔴 ShrineFox is <a href="https://twitch.tv/ShrineFox">
-                    Live on <i class="fa-brands fa-twitch"></i> Twitch</a>
-                </h1>
-            </Card>
+        <Card>
+            <h1>
+                🔴 ShrineFox is <a href="https://twitch.tv/ShrineFox">
+                Live on <i class="fa-brands fa-twitch"></i> Twitch
+                </a></h1>
+            <h3>
+                @File.ReadAllText(streamPath)
+            </h3>
+        </Card>
 
-            <div class="responsive-embed">
-                <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=true&amp;muted=false"
-                        class="twitch-player"
-                        title="Twitch player"
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-                <iframe class="twitch-chat"
-                        src="https://www.twitch.tv/embed/shrinefox/chat?parent=shrinefox.com"
-                        title="Twitch Chat"
-                        loading="lazy">
-                </iframe>
-            </div>
-        }
+        <div class="responsive-embed">
+            <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=true&amp;muted=false"
+                    class="twitch-player"
+                    title="Twitch player"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+            <iframe class="twitch-chat"
+                    src="https://www.twitch.tv/embed/shrinefox/chat?parent=shrinefox.com"
+                    title="Twitch Chat"
+                    loading="lazy">
+            </iframe>
+        </div>
+    
     }
 }
+
+
 
 <style>
     .responsive-embed {
