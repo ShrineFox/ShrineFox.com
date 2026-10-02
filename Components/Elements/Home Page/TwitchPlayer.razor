@@ -34,15 +34,24 @@
 
     if (streaming)
     {
-        <Card>
-            <h1>
-                🔴 ShrineFox is <a href="https://twitch.tv/ShrineFox">
-                Live on <i class="fa-brands fa-twitch"></i> Twitch
-                </a></h1>
-            <h3>
-                @details
-            </h3>
-        </Card>
+        if (details != "")
+        {
+            <Card>
+                <h1>
+                    🔴 ShrineFox is <a href="https://twitch.tv/ShrineFox">
+                    Live on <i class="fa-brands fa-twitch"></i> Twitch
+                </a>
+                </h1>
+                <h3>
+                    @details
+                </h3>
+            </Card>
+        }
+        else
+        {
+            <center><h2>Latest Livestream</h2></center>
+        }
+
 
         <div class="responsive-embed">
             <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=true&amp;muted=false"
