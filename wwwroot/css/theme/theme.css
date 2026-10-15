@@ -19,7 +19,8 @@ html, body {
 }
 
 footer {
-    margin: var(--margin);
+    padding: var(--margin);
+    margin: 0 !important;
 }
 
 hr {
