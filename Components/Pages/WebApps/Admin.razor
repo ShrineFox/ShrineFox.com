@@ -1,0 +1,111 @@
+@page "/admin"
+@rendermode InteractiveServer
+@using System.Net
+@using ShrineFoxCom.Components.Elements
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+
+<PageTitle>ShrineFox.com - Admin Panel</PageTitle>
+<PageNavHeader CurrentPageName="Admin Panel" />
+
+<InputText @bind-value="PasswordValue" type="password"
+           @onkeydown="HandlePasswordKeyDown" />
+<button type="button" @onclick="CheckPassword">Unlock</button>
+
+@if (showDiv)
+{
+    <Card>  
+        <b>Show Stream Embed:</b>
+        <br><InputCheckbox @bind-value="useStreamEmbed" @bind-value:after="ToggleStreamEmbed"/>
+    </Card>
+
+    <Card>
+        <b>Stream Text From Twitch:</b>
+        <br><InputCheckbox @bind-value="useTwitchText" @bind-value:after="ToggleTwitchText"/>
+    </Card>
+
+    <Card>
+        <b>Fallback Twitch Text:</b>
+        <br><InputText @bind-value="fallbackTwitchText"
+                       @onkeydown="HandleFallbackTextKeyDown"></InputText>
+        <button type="button" @onclick="UpdateFallbackText">Update</button>
+    </Card>
+}
+
+@code {
+    private string PasswordValue = "";
+    private bool showDiv = false;
+    private string streamEmbedTxtPath = Path.Combine(Environment.CurrentDirectory, "useStreamEmbed.txt");
+    private string twitchTxtPath = Path.Combine(Environment.CurrentDirectory, "useTwitchText.txt");
+    private string fallbackTwitchTxtPath = Path.Combine(Environment.CurrentDirectory, "fallbackTwitchText.txt");
+    private string adminPasswordPath = Path.Combine(Environment.CurrentDirectory, "adminPassword.txt");
+
+
+    private bool useStreamEmbed = false;
+    private bool useTwitchText = false;
+    private string fallbackTwitchText = "";
+
+
+    private string? errorMessage;
+
+    private void CheckPassword()
+    {
+        if (PasswordValue != File.ReadAllText(adminPasswordPath))
+            return;
+
+        if (!File.Exists(fallbackTwitchTxtPath))
+            File.WriteAllText(fallbackTwitchTxtPath, "");
+
+        useStreamEmbed = File.Exists(streamEmbedTxtPath);
+        useTwitchText = File.Exists(twitchTxtPath);
+        fallbackTwitchText = File.ReadAllText(fallbackTwitchTxtPath);
+
+        showDiv = true;
+    }
+
+    private void ToggleStreamEmbed()
+    {
+        if (useStreamEmbed)
+            File.WriteAllText(streamEmbedTxtPath, "");
+        else if (File.Exists(streamEmbedTxtPath))
+            File.Delete(streamEmbedTxtPath);
+    }
+
+    private void ToggleTwitchText()
+    {
+        if (useTwitchText)
+            File.WriteAllText(twitchTxtPath, "");
+        else if (File.Exists(twitchTxtPath))
+            File.Delete(twitchTxtPath);
+    }
+
+    private void UpdateFallbackText()
+    {
+        File.WriteAllText(fallbackTwitchTxtPath, fallbackTwitchText);
+    }
+
+    private void EnsureFallbackFileExists()
+    {
+        if (!File.Exists(fallbackTwitchTxtPath))
+        {
+            File.WriteAllText(fallbackTwitchTxtPath, "");
+        }
+    }
+
+    private void HandlePasswordKeyDown(
+        Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            CheckPassword();
+        }
+    }
+
+    private void HandleFallbackTextKeyDown(
+    Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            UpdateFallbackText();
+        }
+    }
+}

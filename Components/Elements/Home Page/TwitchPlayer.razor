@@ -7,34 +7,48 @@
 {
     bool streaming = false;
     string details = "";
-    string txtPath = Path.Combine(Environment.CurrentDirectory, "stream.txt");
+    bool showDetails = true;
+    string streamEmbedTxtPath = Path.Combine(Environment.CurrentDirectory, "useStreamEmbed.txt") ?? "";
+    string twitchTxtPath = Path.Combine(Environment.CurrentDirectory, "useTwitchText.txt") ?? "";
+    string fallbackTwitchTxtPath = Path.Combine(Environment.CurrentDirectory, "fallbackTwitchText.txt") ?? "";
 
-    if (File.Exists(txtPath))
+    if (File.Exists(streamEmbedTxtPath))
+        streaming = true; // show streaming embed on home page
+        
+    if (File.Exists(twitchTxtPath))
     {
-        streaming = true;
-        details = File.ReadAllText(txtPath);
-        if (details == "offline")
-            streaming = false;
-    }
-    else
-    {
+        // Set details by downloading data from Twitch page
         var response = client.GetAsync("https://twitch.tv/shrinefox", HttpCompletionOption.ResponseHeadersRead).GetAwaiter().GetResult();
         response.EnsureSuccessStatusCode();
         string html = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-        if (html.Contains("Streaming"))
+        if (html.Contains("Streaming")) // Should only contain "streaming" if live
         {
-            streaming = true;
             Match match = Regex.Match(html, @"<meta\s+property=[""']og:description[""']\s+content=[""']([^""']*)[""']", RegexOptions.IgnoreCase);
             if (match.Success)
             {
-                details = @match.Groups[1].Value;
+                details = @match.Groups[1].Value ?? "";
             }
         }
+        else
+        {
+            // hide details above streaming embed
+            showDetails = false; 
+        }
+    }
+    else if (File.Exists(fallbackTwitchTxtPath))
+    {
+        // Use fallback text instead for details
+        details = File.ReadAllText(fallbackTwitchTxtPath) ?? "";
+    }
+    else
+    {
+        // hide details above streaming embed
+        showDetails = false;
     }
 
     if (streaming)
     {
-        if (!string.IsNullOrEmpty(details))
+        if (showDetails)
         {
             <Card>
                 <h1>
@@ -54,7 +68,7 @@
 
 
         <div class="responsive-embed">
-            <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=true&amp;muted=false"
+        <iframe src="https://player.twitch.tv/?channel=shrinefox&amp;parent=shrinefox.com&amp;autoplay=true&amp;muted=false"
                     class="twitch-player"
                     title="Twitch player"
                     loading="lazy"
@@ -63,7 +77,7 @@
                     allowfullscreen>
             </iframe>
             <iframe class="twitch-chat"
-                    src="https://www.twitch.tv/embed/shrinefox/chat?parent=shrinefox.com"
+                src="https://www.twitch.tv/embed/shrinefox/chat?parent=shrinefox.com"
                     title="Twitch Chat"
                     loading="lazy">
             </iframe>

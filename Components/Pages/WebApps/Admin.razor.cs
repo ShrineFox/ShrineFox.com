@@ -1,0 +1,3 @@
+namespace ShrineFoxCom.Components.Pages
+{
+}
