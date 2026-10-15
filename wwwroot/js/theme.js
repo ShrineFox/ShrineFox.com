@@ -35,7 +35,7 @@ function SetColor() {
 			accent = '156,87,188';
 			break;
 		case 'pink':
-			accent = '234,142,226';
+			accent = '255,0,96';
 			break;
 		case 'magenta':
 			accent = '195,77,127';
@@ -230,7 +230,7 @@ function HideColorPicker() {
 			case 'green': accent = '51,186,54'; break;
 			case 'blue': accent = '64,137,206'; break;
 			case 'violet': accent = '156,87,188'; break;
-			case 'pink': accent = '234,142,226'; break;
+			case 'pink': accent = '255,0,96'; break;
 			case 'magenta': accent = '195,77,127'; break;
 			case 'gamer': accent = '169,71,71'; break;
 			case 'custom':
