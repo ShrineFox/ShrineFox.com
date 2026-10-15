@@ -1,0 +1,23 @@
+@using ShrineFoxCom.Components.Elements.Spectre_Framework
+@inject IJSRuntime JS
+
+@code
+{
+    [Parameter]
+    public string URL { get; set; }
+    [Parameter]
+    public string Title { get; set; } = "";
+    [Parameter]
+    public string Date { get; set; } = "";
+    [Parameter]
+    public string ImageURL { get; set; } = "";
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
+
+<Card Title="@(new MarkupString($"<a href=\"{@URL}\" target=\"_blank\"><i class=\"fa fa-link\"></i></a>{@Title}"))"
+        Subtitle="@(new MarkupString($"<i class=\"fas fa-history\" aria-hidden=\"true\"></i> {@Date}</span>"))"
+      Image=@(new MarkupString($"<img class=\"inset\" src=\"{@ImageURL}\">"))
+    Footer=@(new MarkupString($"<a class=\"btn btn-secondary float-right\" href=\"{@URL}\"><i class=\"fa fa-code\"></i> Read Post</a>"))>
+    @ChildContent
+</Card>
