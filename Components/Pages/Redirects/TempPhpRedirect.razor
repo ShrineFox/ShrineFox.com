@@ -1,0 +1,32 @@
+﻿@page "/forum/{*route:nonfile}"
+@page "/wiki/{*route:nonfile}"
+@page "/blog/{*route:nonfile}"
+@using ShrineFoxCom.Components.Elements
+@inject NavigationManager Navigation
+
+
+<PageTitle>ShrineFox.com - Redirect</PageTitle>
+<PageNavHeader CurrentPageName="Redirect"/>
+
+<h1>Redirect</h1>
+
+Page is offline. Redirecting you to a cached version on the Wayback machine...
+<br><a href="@url">Click here</a> if you aren't automatically redirected.
+
+
+@code {
+    string url = "";
+
+    [Parameter]
+    public string? Route { get; set; }
+}
+
+@functions
+{
+    protected override void OnInitialized()
+    {
+        url = $"https://web.archive.org/{Uri.EscapeDataString(Navigation.Uri)}";
+        Navigation.NavigateTo(url, forceLoad: true);
+    }
+}
+
