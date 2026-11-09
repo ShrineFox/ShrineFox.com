@@ -101,3 +101,7 @@ ul, ol {
 	margin-left:2em;
 	margin-right:2em;
 }
+
+.accordion-header {
+	color: #c540ff;
+}

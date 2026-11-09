@@ -261,7 +261,7 @@ new Post() { Id = "p5-persona-backport", Type = "mod", Games = ["p5"], Authors =
                 },
 new Post() { Id = "p5-adachi", Type = "mod", Games = ["p5"], Authors = ["ShrineFox","TGE","Crowpocalypse"], Tags= ["Scripts","QoL","Player","NPC","BGM","Voice","UI","Persona","Text","COMMUNITY MOD"], PostIndex = 0,
                     Title = "Persona 5 Adachi Mod", Date = DateTime.ParseExact("9/17/2020", dateTimeFormats, CultureInfo.InvariantCulture),
-                    Description = "Playable Adachi complete with updated voices, BGM, DLC costumes, UI graphics and more.", EmbedURL = "https://www.youtube.com/watch?v=AK60M1zDv2k", URL = "https://amicitia.github.io/en/adachi", SourceURL = "", UpdateText = "<b>Update v1.1</b>: Fix phone event crash, Yongen-Jaya crash, black rectangle on talk portrait"
+                    Description = "Playable Adachi complete with updated voices, BGM, DLC costumes, UI graphics and more.", EmbedURL = "https://www.youtube.com/watch?v=AK60M1zDv2k", URL = "https://shrinefox.com/adachi", SourceURL = "", UpdateText = "<b>Update v1.1</b>: Fix phone event crash, Yongen-Jaya crash, black rectangle on talk portrait"
                 },
 new Post() { Id = "p5-colorful-ui", Type = "mod", Games = ["p5"], Authors = ["HaythamQuake"], Tags= ["UI","COMMUNITY MOD"], PostIndex = 0,
                     Title = "Colorful Battle UI", Date = DateTime.ParseExact("9/6/2020", dateTimeFormats, CultureInfo.InvariantCulture),
@@ -469,7 +469,7 @@ new Post() { Id = "420yosuke", Type = "mod", Games = ["p4"], Authors = ["ShrineF
                 },
 new Post() { Id = "p3adachi", Type = "mod", Games = ["p3fes"], Authors = ["ShrineFox"], Tags= ["Player","Voice","UI","Text","Persona","COMMUNITY MOD"], PostIndex = 0,
                     Title = "P3FES Playable Adachi", Date = DateTime.ParseExact("2/1/2016", dateTimeFormats, CultureInfo.InvariantCulture),
-                    Description = "- Changes Models, Graphics and Music to suit Tohru Adachi. Includes custom HUD icons, pause screen renders and cut-ins. Magatsu Izanagi imported over Thanatos, new Magatsu Orpheus design and misc music tracks replaced", EmbedURL = "https://www.youtube.com/watch?v=wmJzWce0C6w", URL = "https://drive.google.com/open?id=1VbGsgYLoX-bZbFEEbm1_pF0Q6LNmAlXD", SourceURL = "", UpdateText = ""
+                    Description = "- Changes Models, Graphics and Music to suit Tohru Adachi. Includes custom HUD icons, pause screen renders and cut-ins. Magatsu Izanagi imported over Thanatos, new Magatsu Orpheus design and misc music tracks replaced", EmbedURL = "https://www.youtube.com/watch?v=wmJzWce0C6w", URL = "https://mega.nz/file/YpdQAI7Z#dgGHGVj5OuGl9SKwkDIOWl9TFpJUv01kVZJDP6jskJ4", SourceURL = "", UpdateText = ""
                 },
 new Post() { Id = "p4adachinavi", Type = "mod", Games = ["p4"], Authors = ["ShrineFox"], Tags= ["Voice","UI","Text","COMMUNITY MOD"], PostIndex = 0,
                     Title = "P4 Adachi Navigator", Date = DateTime.ParseExact("1/3/2016", dateTimeFormats, CultureInfo.InvariantCulture),
@@ -660,6 +660,16 @@ new Post() { Id = "p5r-10", Type = "guide", Games = ["p5r-pc"], Authors = ["Shri
                     Title = "P5R Modding Guide (2026) #10 – Editing Tables", Date = DateTime.ParseExact("1/20/26", dateTimeFormats, CultureInfo.InvariantCulture),
                     Description = "Learn how to edit P5R data tables using a variety of tools. After explaining the purpose of each table, we use this knowledge to create a custom encounter with a custom enemy that uses a custom skill. Also: introduction to hex editing, while using 010 Templates to simplify the process.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2026/01/p5r-10-3.jpg",
                     URL = "https://shrinefox.com/blog/2026/01/20/p5r-modding-guide-2025-10-editing-tables/", SourceURL = "https://www.youtube.com/watch?v=3uB57WVdCeU&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=10"
+                },
+new Post() { Id = "p5r-11", Type = "guide", Games = ["p5r-pc"], Authors = ["ShrineFox"], Tags= ["PLG"], PostIndex = 0,
+                    Title = "P5R Modding Guide (2026) #11 – Editing Vectors (PLG)", Date = DateTime.ParseExact("10/30/26", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "Learn how to edit P5R data tables using a variety of tools. After explaining the purpose of each table, we use this knowledge to create a custom encounter with a custom enemy that uses a custom skill. Also: introduction to hex editing, while using 010 Templates to simplify the process.", EmbedURL = "https://shrinefox.com/blog/wp-content/uploads/2026/01/p5r-10-3.jpg",
+                    URL = "https://shrinefox.com/blog/2026/10/30/p5r-modding-guide-2026-11-editing-vectors-plg/", SourceURL = "https://www.youtube.com/watch?v=ULiN5ymdR8Q&list=PLU6By7bu-RSsDCCVECx1Z5duUuFWSqZrw&index=11"
+                },
+new Post() { Id = "p5r-spypidgeonmenu", Type = "mod", Games = ["p5r-pc"], Authors = ["SpyPidgeon"], Tags= ["Mod Menu"], PostIndex = 0,
+                    Title = "SpyPigeon's P5R Mod Editor (WIP)", Date = DateTime.ParseExact("11/7/26", dateTimeFormats, CultureInfo.InvariantCulture),
+                    Description = "This is a mod menu I'm working on for P5R version 1.0.4 on PC made using C++. It's intended to launch when you open the game and allow you to modify a number of things while you're in-game.", EmbedURL = "https://images.gamebanana.com/img/ss/wips/6abddfaedf611.jpg",
+                    URL = "https://gamebanana.com/wips/100310", SourceURL = "https://github.com/SpyPidgeon/p5rpc.tools.modeditor"
                 }
             };
 
