@@ -3,14 +3,6 @@ var text = '139,148,158';
 var bg = '01,04,09';
 var rgb = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-	SetColor();
-	SetDarkMode();
-	setInterval(function () {
-		RotateRGB();
-	}, 2000);
-});
-
 function SetColor() {
 	var color = getCookie("color");
 	HideColorPicker();
@@ -37,8 +29,8 @@ function SetColor() {
 		case 'pink':
 			accent = '255,0,96';
 			break;
-		case 'magenta':
-			accent = '195,77,127';
+		case 'pride':
+			accent = '255,128,216';
 			break;
 		case 'gamer':
 			accent = '169,71,71';
@@ -195,159 +187,246 @@ function HideColorPicker() {
 	c.setAttribute("style", "display: none;");
 }
 
-(function () {
+(() => {
+    const DEFAULT_COLORS = {
+        accent: '51,186,54',
+        darkText: '139,148,158',
+        darkBackground: '01,04,09',
+        lightText: '01,04,09',
+        lightBackground: '225,225,225'
+    };
 
-	let accent = '51,186,54';
-	let text = '139,148,158';
-	let bg = '01,04,09';
-	let rgb = 0;
-	let rgbTimer = null;
+    const THEME_COLORS = {
+        red: '180,41,41',
+        orange: '227,128,75',
+        yellow: '191,175,50',
+        green: '51,186,54',
+        blue: '64,137,206',
+        violet: '156,87,188',
+        pink: '255,0,96',
+        pride: '255,128,216',
+        gamer: '169,71,71'
+    };
 
-	// PUBLIC ENTRY POINT
-	window.initTheme = function () {
-		SetColor();
-		SetDarkMode();
-		StartRGBRotation();
-	};
+    const GAMER_COLORS = [
+        '169,71,71',
+        '227,168,95',
+        '191,175,80',
+        '68,163,69',
+        '92,149,199',
+        '156,87,188'
+    ];
 
-	function StartRGBRotation() {
-		// Prevent multiple intervals on navigation
-		if (rgbTimer !== null) return;
+    let accent = DEFAULT_COLORS.accent;
+    let text = DEFAULT_COLORS.darkText;
+    let background = DEFAULT_COLORS.darkBackground;
+    let gamerColorIndex = 0;
+    let rgbTimer = null;
+    let syncingPickers = false;
 
-		rgbTimer = setInterval(() => {
-			RotateRGB();
-		}, 2000);
-	}
+    window.initTheme = function () {
+        restoreThemeSelection();
+        applyTheme();
+        startGamerRotation();
+    };
 
-	function SetColor() {
-		const color = getCookie("color");
-		HideColorPicker();
+    window.DarkModeSelect = function () {
+        const toggle = document.getElementById('darkToggle');
+        if (!toggle) return;
 
-		switch (color) {
-			case 'red': accent = '180,41,41'; break;
-			case 'orange': accent = '227,128,75'; break;
-			case 'yellow': accent = '191,175,50'; break;
-			case 'green': accent = '51,186,54'; break;
-			case 'blue': accent = '64,137,206'; break;
-			case 'violet': accent = '156,87,188'; break;
-			case 'pink': accent = '255,0,96'; break;
-			case 'magenta': accent = '195,77,127'; break;
-			case 'gamer': accent = '169,71,71'; break;
-			case 'custom':
-				ShowColorPicker();
-				if (getCookie("color_custom") === "") {
-					setCookie("color_custom", "50,50,50", 999);
-				}
-				accent = getCookie("color_custom");
-				break;
-			default:
-				accent = '51,186,54';
-				break;
-		}
+        setCookie('darkmode', toggle.checked ? 'on' : 'off', 999);
+        applyTheme();
+    };
 
-		document.documentElement.style.setProperty('--accent', accent);
-	}
+    window.ColorSelect = function () {
+        const selector = document.getElementById('color');
+        if (!selector) return;
 
-	function RotateRGB() {
-		if (getCookie("color") !== "gamer") return;
+        setCookie('color', selector.value.toLowerCase(), 999);
+        applyTheme();
+    };
 
-		const colors = [
-			'169,71,71',
-			'227,168,95',
-			'191,175,80',
-			'68,163,69',
-			'92,149,199',
-			'156,87,188'
-		];
+    window.updateAccent = function (picker) {
+        if (syncingPickers) return;
 
-		accent = colors[rgb] ?? colors[0];
-		rgb = (rgb + 1) % colors.length;
+        setCookie('color_custom', getPickerRgbValue(picker), 999);
+        applyTheme();
+    };
 
-		document.documentElement.style.setProperty('--accent', accent);
-	}
+    window.updateText = function (picker) {
+        if (syncingPickers) return;
 
-	// Exposed for UI bindings
-	window.DarkModeSelect = function () {
-		const toggle = document.getElementById("darkToggle");
-		if (!toggle) return;
+        text = getPickerRgbValue(picker);
+        setCookie('text_custom', text, 999);
+        setCssVariable('--text', text);
+    };
 
-		setCookie("darkmode", toggle.checked ? "on" : "off", 999);
-		SetDarkMode();
-	};
+    window.updateBackground = function (picker) {
+        if (syncingPickers) return;
 
-	function SetDarkMode() {
-		const darkmode = getCookie("darkmode");
-		const toggle = document.getElementById("darkToggle");
+        background = getPickerRgbValue(picker);
+        setCookie('bg_custom', background, 999);
+        setCssVariable('--bg', background);
+    };
 
-		if (darkmode === 'off') {
-			document.documentElement.className = 'fd_light';
-			text = '01,04,09';
-			bg = '225,225,225';
-			if (toggle) toggle.checked = false;
-		} else {
-			document.documentElement.className = 'fd_dark';
-			text = '139,148,158';
-			bg = '01,04,09';
-			if (toggle) toggle.checked = true;
-		}
+    window.updateColorPicker = syncPickers;
 
-		document.documentElement.style.setProperty('--text', text);
-		document.documentElement.style.setProperty('--bg', bg);
-	}
+    function restoreThemeSelection() {
+        const savedColor = getCookie('color');
+        const selector = document.getElementById('color');
+        if (!selector || !savedColor) return;
 
-	window.ColorSelect = function () {
-		const el = document.getElementById("color");
-		if (!el) return;
+        const savedOption = Array.from(selector.options)
+            .find(option => option.value.toLowerCase() === savedColor.toLowerCase());
 
-		setCookie("color", el.value.toLowerCase(), 999);
-		SetColor();
-	};
+        selector.value = savedOption?.value ?? '';
+    }
 
-	window.updateAccent = function (picker) {
-		const rgbVal = picker.toRGBString()
-			.replace("rgb(", "")
-			.replace(")", "");
+    function applyTheme() {
+        const color = getCookie('color');
 
-		setCookie("color_custom", rgbVal, 999);
-		SetColor();
-	};
+        setAccentColor(color);
+        setTextAndBackgroundColors(color);
+        setHeaderImageStyle(color === 'pride');
+        setGamerTransitionStyle(color === 'gamer');
+        syncPickers();
+    }
 
-	window.updateColorPicker = function () {
-		const picker = document.querySelector('#customaccent');
-		if (!picker || !picker.jscolor) return;
+    function setAccentColor(color) {
+        showOrHideCustomPicker(color === 'custom');
 
-		picker.jscolor.fromString(`rgba(${accent},1)`);
-	};
+        if (color === 'custom') {
+            if (!getCookie('color_custom')) {
+                setCookie('color_custom', '50,50,50', 999);
+            }
+            accent = getCookie('color_custom');
+        } else {
+            accent = THEME_COLORS[color] ?? DEFAULT_COLORS.accent;
+        }
 
-	function ShowColorPicker() {
-		const c = document.getElementById('colorpicker');
-		if (c) c.style.display = 'initial';
-	}
+        setCssVariable('--accent', accent);
+    }
 
-	function HideColorPicker() {
-		const c = document.getElementById('colorpicker');
-		if (c) c.style.display = 'none';
-	}
+    function setTextAndBackgroundColors(color) {
+        const darkMode = getCookie('darkmode');
+        const toggle = document.getElementById('darkToggle');
 
-	function getCookie(cname) {
-		const name = cname + "=";
-		const decodedCookie = decodeURIComponent(document.cookie);
-		const ca = decodedCookie.split(';');
+        if (color === 'pride') {
+            text = '0,181,246';
+            if (darkMode === 'off') {
+                document.documentElement.className = 'fd_light';
+                background = DEFAULT_COLORS.lightBackground;
+                if (toggle) toggle.checked = false;
+            } else {
+                document.documentElement.className = 'fd_dark';
+                background = DEFAULT_COLORS.darkBackground;
+                if (toggle) toggle.checked = true;
+            }
+        } else if (darkMode === 'off') {
+            document.documentElement.className = 'fd_light';
+            text = DEFAULT_COLORS.lightText;
+            background = DEFAULT_COLORS.lightBackground;
+            if (toggle) toggle.checked = false;
+        } else {
+            document.documentElement.className = 'fd_dark';
+            text = DEFAULT_COLORS.darkText;
+            background = DEFAULT_COLORS.darkBackground;
+            if (toggle) toggle.checked = true;
+        }
 
-		for (let c of ca) {
-			c = c.trim();
-			if (c.indexOf(name) === 0) {
-				return c.substring(name.length);
-			}
-		}
-		return "";
-	}
+        if (color === 'custom') {
+            text = getCookie('text_custom') || text;
+            background = getCookie('bg_custom') || background;
+        }
 
-	function setCookie(cname, val, exdays) {
-		const exdate = new Date();
-		exdate.setDate(exdate.getDate() + exdays);
-		document.cookie =
-			`${cname}=${encodeURIComponent(val)}; expires=${exdate.toUTCString()}; path=/`;
-	}
+        setCssVariable('--text', text);
+        setCssVariable('--bg', background);
+    }
 
+    function setHeaderImageStyle(isPride) {
+        const headerImage = document.querySelector('.header-img');
+        if (!headerImage) return;
+
+        headerImage.style.mixBlendMode = isPride ? 'unset' : 'luminosity';
+        headerImage.style.opacity = isPride ? '0.8' : '0.5';
+    }
+
+    function setGamerTransitionStyle(isGamer) {
+        if (!document.body) return;
+
+        for (const element of document.body.querySelectorAll('*')) {
+            element.style.transition = isGamer
+                ? 'color, background-color 1s'
+                : 'revert-rule';
+        }
+    }
+
+    function startGamerRotation() {
+        if (rgbTimer !== null) return;
+
+        rgbTimer = setInterval(() => {
+            if (getCookie('color') !== 'gamer') return;
+
+            accent = GAMER_COLORS[gamerColorIndex];
+            gamerColorIndex = (gamerColorIndex + 1) % GAMER_COLORS.length;
+            setCssVariable('--accent', accent);
+        }, 2000);
+    }
+
+    function syncPickers() {
+        const pickers = [
+            ['#customaccent', accent],
+            ['#customtext', text],
+            ['#custombg', background]
+        ];
+
+        syncingPickers = true;
+        try {
+            for (const [selector, value] of pickers) {
+                const picker = document.querySelector(selector);
+                if (picker?.jscolor) {
+                    picker.jscolor.fromString(`rgba(${value},1)`);
+                }
+            }
+        } finally {
+            syncingPickers = false;
+        }
+    }
+
+    function showOrHideCustomPicker(show) {
+        const picker = document.getElementById('colorpicker');
+        if (picker) picker.style.display = show ? 'initial' : 'none';
+    }
+
+    function getPickerRgbValue(picker) {
+        return picker.toRGBString()
+            .replace('rgb(', '')
+            .replace(')', '');
+    }
+
+    function setCssVariable(name, value) {
+        document.documentElement.style.setProperty(name, value);
+    }
+
+    function getCookie(name) {
+        const prefix = `${name}=`;
+        const cookie = document.cookie
+            .split('; ')
+            .find(value => value.startsWith(prefix));
+
+        return cookie ? decodeURIComponent(cookie.substring(prefix.length)) : '';
+    }
+
+    function setCookie(name, value, days) {
+        const expiration = new Date();
+        expiration.setDate(expiration.getDate() + days);
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expiration.toUTCString()}; path=/`;
+    }
+
+    const initializeThemeOnLoad = () => window.initTheme?.();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeThemeOnLoad, { once: true });
+    } else {
+        initializeThemeOnLoad();
+    }
 })();

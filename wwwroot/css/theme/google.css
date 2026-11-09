@@ -12,7 +12,7 @@
 }
 
 .googlesearch {
-    background: rgba(var(--accent), 0.8) !important;
+    background: rgba(var(--accent), 1) !important;
 }
 
 .search {
@@ -88,4 +88,13 @@ input.gsc-input, .gsc-input-box, .gsc-input-box-hover, .gsc-input-box-focus {
 .gssb_e {
     background: rgba(var(--accent), 1);
     -webkit-filter: brightness(79%);
+}
+
+.videocontainer::after {
+    background: linear-gradient(to top, rgba(var(--accent), 1.0), transparent);
+    content: "";
+    position: absolute;
+    height: 110px;
+    inset-inline: 0;
+    bottom: 0;
 }
