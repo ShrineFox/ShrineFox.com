@@ -60,32 +60,38 @@ function RotateRGB() {
 		switch (rgb)
 		{
 			case 0:
-				accent = '169,71,71';
+                accent = '180,41,41';
 				break;
 			case 1:
-				accent = '227,168,95';
+                accent = '227,128,75';
 				break;
 			case 2:
-				accent = '191,175,80';
+                accent = '191,175,50';
 				break;
 			case 3:
-				accent = '68,163,69';
+                accent = '51,186,54';
 				break;
 			case 4:
-				accent = '92,149,199';
+                accent = '64,137,206';
 				break;
 			case 5:
 				accent = '156,87,188';
 				break;
+            case 6:
+                accent = '255,0,96';
+                break;
+            case 7:
+                accent = '255,128,216';
+                break;
 			default:
-				accent = '169,71,71';
+                accent = '180,41,41';
 				break;
 		}
 		rgb++;
 		/* Override CSS color values */
 		document.documentElement.style.setProperty('--accent', accent);
 	}
-	if (rgb > 5) { rgb = 0 }
+    if (rgb > 7) { rgb = 0 }
 }
 
 function DarkModeSelect() {
@@ -209,12 +215,14 @@ function HideColorPicker() {
     };
 
     const GAMER_COLORS = [
-        '169,71,71',
-        '227,168,95',
-        '191,175,80',
-        '68,163,69',
-        '92,149,199',
-        '156,87,188'
+        '180,41,41',
+        '227,128,75',
+        '191,175,50',
+        '51,186,54',
+        '64,137,206',
+        '156,87,188',
+        '255,0,96',
+        '255,128,216'
     ];
 
     let accent = DEFAULT_COLORS.accent;
@@ -347,8 +355,8 @@ function HideColorPicker() {
         const headerImage = document.querySelector('.header-img');
         if (!headerImage) return;
 
-        headerImage.style.mixBlendMode = isPride ? 'unset' : 'luminosity';
-        headerImage.style.opacity = isPride ? '0.8' : '0.5';
+        headerImage.style.mixBlendMode = isPride ? 'overlay' : 'luminosity';
+        headerImage.style.opacity = isPride ? '1' : '0.5';
     }
 
     function setGamerTransitionStyle(isGamer) {
@@ -356,7 +364,7 @@ function HideColorPicker() {
 
         for (const element of document.body.querySelectorAll('*')) {
             element.style.transition = isGamer
-                ? 'color, background-color 1s'
+                ? 'color 3s, background 3s, background-color 3s, border-color 3s, fill 3s, box-shadow 3s'
                 : 'revert-rule';
         }
     }
